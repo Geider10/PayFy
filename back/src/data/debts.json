@@ -4,7 +4,7 @@
       "serviceId": "0005"
     },
     "client_id": "88888888",
-    "client_description": "Pago mensual del plan móvil",
+    "client_description": "Servicio de internet hogar",
     "due_date": "2024-02-20",
     "amount": 4890.50,
     "invoice_title": "Factura Movistar",
@@ -12,13 +12,13 @@
   },
   {
     "company": {
-      "serviceId": "0004"
+      "serviceId": "0005"
     },
     "client_id": "88888888",
     "client_description": "Servicio de internet hogar",
     "due_date": "2024-03-10",
     "amount": 6520.75,
-    "invoice_title": "Factura Personal",
+    "invoice_title": "Factura Movistar",
     "invoice_id": "INV-20240310-PER002"
   },
   {

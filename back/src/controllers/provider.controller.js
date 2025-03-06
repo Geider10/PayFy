@@ -27,28 +27,30 @@ export class ProviderController{
             next(error)
         }
     }
-    static async servicesDebt(req,res,next){
+    static async showServicesDebt(req,res,next){
         try {
-            const sdBody= req.body
-            const debts = await ProviderService.servicesDebt({sdBody})
+            const {clientId} = req.body
+            const {category} = req.query
+            console.log(clientId,category);
+            const debts = await ProviderService.showServicesDebt({clientId,category})
             res.status(200).json(debts)
         } catch (error) {
             next(error)
         }
     }
-    static async getServices(req,res,next){
+    static async getServicesUser(req,res,next){
         try {
             const {id} = req.params
-            const services = await ProviderService.getServices({id})
+            const services = await ProviderService.getServicesUser({id})
             res.status(200).json(services)
         } catch (error) {
             next(error)
         }
     }
-    static async deleteService(req,res,next){
+    static async deleteServiceUser(req,res,next){
         try {
             const {id,serviceId} = req.params
-            const user = await ProviderService.deleteService({id,serviceId})
+            const user = await ProviderService.deleteServiceUser({id,serviceId})
             return res.status(200).json(user)
         } catch (error) {
             next(error)

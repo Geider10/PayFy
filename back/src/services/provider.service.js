@@ -25,27 +25,30 @@ export class ProviderService{
         //get service by serviceId
         const service = companiesList.find(s => s.serviceId == serviceId)
         if(!service) throw new Error('Service no found')
-        //validate clientId
-        const isClienteId = service.registeredUsers.some(c => c.clientId == clientId)
-        if(!isClienteId) throw new Error('Client_ID no is registered') 
-        //get user and validate if user has service
+        //check if client is registered with service
+        const isClienteId = service.registeredUsers.some(c => c.client_Id == clientId)
+        if(!isClienteId) throw new Error('Client no is registered with service') 
+        //get user and check if user already has a service
         const user = await userModel.findById(userId)
         if(!user) throw new Error('User no found')
         const isService = user.userFavoriteServices.some(s => s.serviceId == serviceId)
-        if(isService) throw new Error('service is registered')
+        if(isService) return {success : true, message : 'service already is registered'}
         user.userFavoriteServices.push({serviceId})
         await user.save()
         return {success: true, message : 'suscribed success to service', user}
     }
-    static async servicesDebt({sdBody}){
-        const {serviceId} = sdBody
+    static async showServicesDebt({clientId,category}){
         const debtsList = readJSON('../data/debts.json')
         if(debtsList.length == 0) throw new Error('There are no debts in API')
-        const filterDebts = debtsList.filter(d => d.company.serviceId == serviceId)
-        if(!filterDebts) throw new Error('Thre are not debts')
-        return  filterDebts
-    } 
-    static async getServices({id}){
+        const filterByClient = debtsList.filter(d => d.client_id == clientId)
+        if(category  != undefined) {
+            const filterByService = filterByClient.filter(d => d.company.serviceId == category)
+            return filterByService
+        }
+        if(filterByClient.length == 0) return {message: 'There are not debts pending'}
+        return  filterByClient
+    }  
+    static async getServicesUser({id}){
         const companiesList = readJSON('../data/companies.json')
         if(companiesList.length == 0) throw new Error('There are not companies in API')
         const user = await userModel.findById(id)
@@ -53,10 +56,10 @@ export class ProviderService{
         const favoriteServices = companiesList.filter(company => 
             user.userFavoriteServices.some(service => service.serviceId === company.serviceId)
         );
-        if(favoriteServices.length == 0) throw new Error('There are no favoriteServices')
+        if(favoriteServices.length == 0) return {message : 'There are not services registered'}
         return favoriteServices
     }
-    static async deleteService({id,serviceId}){
+    static async deleteServiceUser({id,serviceId}){
         const user = await userModel.findById(id)
         if(!user) throw new Error('User no found')
         user.userFavoriteServices = user.userFavoriteServices.filter( s => s.serviceId != serviceId)
