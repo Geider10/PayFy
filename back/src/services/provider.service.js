@@ -16,9 +16,8 @@ export class ProviderService{
         if(filterCompanies.length == 0) throw new Error('There are not companies in this category')
         return filterCompanies
     }
-    static async suscribedToService({serviceBody}){
-        //body: userId, serviceId, clientId
-        const {serviceId, clientId, userId} = serviceBody
+    static async addServiceUser({serviceBody}){
+        const {serviceId, clientId, userId} = serviceBody //body: userId, serviceId, clientId
         //get companies 
         const companiesList = readJSON('../data/companies.json')
         if(companiesList.length == 0) throw new Error('There are not companies in API')
@@ -37,17 +36,25 @@ export class ProviderService{
         await user.save()
         return {success: true, message : 'suscribed success to service', user}
     }
-    static async showServicesDebt({clientId,category}){
+    static async getDebtsUser({clientId,serviceId,debtId}){
         const debtsList = readJSON('../data/debts.json')
         if(debtsList.length == 0) throw new Error('There are no debts in API')
-        const filterByClient = debtsList.filter(d => d.client_id == clientId)
-        if(category  != undefined) {
-            const filterByService = filterByClient.filter(d => d.company.serviceId == category)
-            return filterByService
+        const user = await userModel.findById(clientId).lean()
+        if(!user) throw new Error('User no found')
+        //get debts only services is registered
+        let debtsByService = debtsList.filter( debt => 
+            user.userFavoriteServices.some(service => service.serviceId == debt.company.serviceId)
+        )
+        //and if debt match with client_Id
+        debtsByService = debtsByService.filter(debt => debt.client_id == debtId)
+        if(serviceId  != undefined) {//filter por categoria
+            const filterByCategory = debtsByService.filter(d => d.company.serviceId == serviceId)
+            return filterByCategory
         }
-        if(filterByClient.length == 0) return {message: 'There are not debts pending'}
-        return  filterByClient
+        if(debtsByService.length == 0) return {message: 'There are not debts pending'}
+        return  debtsByService
     }  
+    //get one debt by invoice_Id
     static async getServicesUser({id}){
         const companiesList = readJSON('../data/companies.json')
         if(companiesList.length == 0) throw new Error('There are not companies in API')

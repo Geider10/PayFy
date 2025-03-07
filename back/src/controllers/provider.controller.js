@@ -18,21 +18,21 @@ export class ProviderController{
             next(error) 
         }
     }
-    static async suscribedToService(req,res,next){
+    static async addServiceUser(req,res,next){
         try {
             const serviceBody = req.body
-            const service = await ProviderService.suscribedToService({serviceBody})
+            const service = await ProviderService.addServiceUser({serviceBody})
             res.status(201).json(service)
         } catch (error) {
             next(error)
         }
     }
-    static async showServicesDebt(req,res,next){
+    static async getDebtsUser(req,res,next){
         try {
-            const {clientId} = req.body
-            const {category} = req.query
-            console.log(clientId,category);
-            const debts = await ProviderService.showServicesDebt({clientId,category})
+            const {clientId, debtId} = req.body
+            const {serviceId} = req.query
+            console.log(clientId,debtId);
+            const debts = await ProviderService.getDebtsUser({clientId,serviceId,debtId})
             res.status(200).json(debts)
         } catch (error) {
             next(error)
