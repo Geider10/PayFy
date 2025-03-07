@@ -1,27 +1,28 @@
 import {PaymentService} from '../services/payment.service.js';
 
 export class PaymentController{
-    static async getPayments(req,res,next){
+    static async getPaymentsUser(req,res,next){
         try {
-            const payments = await PaymentService.getPayments()
+            const {clientId} = req.params
+            const payments = await PaymentService.getPaymentsUser({clientId})
             res.status(200).json(payments)
         } catch (error) {
             next(error)
         }
     }
-    static async getPaymentById(req,res,next){
+    static async getPaymentByIdUser(req,res,next){
         try {
-            const {id} = req.params
-            const payment = await PaymentService.getPaymentById({id})
+            const {payId} = req.params
+            const payment = await PaymentService.getPaymentByIdUser({payId})
             res.status(200).json(payment)
         } catch (error) {
             next(error)
         }
     }
-    static async createPayment(req,res,next){
+    static async createPaymentUser(req,res,next){
         try {
             const paymentBody = req.body
-            const payment = await PaymentService.createPayment({paymentBody})
+            const payment = await PaymentService.createPaymentUser({paymentBody})
             res.status(201).json(payment)
         } catch (error) {
             next(error)

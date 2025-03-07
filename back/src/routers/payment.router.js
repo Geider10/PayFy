@@ -4,6 +4,6 @@ import {validateSchema} from '../middlewares/validateSchema.js';
 import {paymentSchema} from '../schemas/payment.schema.js';
 
 export const paymentRouter = Router()
-paymentRouter.get('/',PaymentController.getPayments)
-paymentRouter.get('/:id',PaymentController.getPaymentById)
-paymentRouter.post('/',validateSchema(paymentSchema),PaymentController.createPayment)
+paymentRouter.get('/user/:clientId',PaymentController.getPaymentsUser)
+paymentRouter.get('/pay/:payId',PaymentController.getPaymentByIdUser)
+paymentRouter.post('/',validateSchema(paymentSchema),PaymentController.createPaymentUser)
