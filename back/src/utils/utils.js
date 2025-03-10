@@ -30,6 +30,16 @@ export const formatDate = (date) => {
 }
 
 //permite leer archivos json con moduls 
-import { createRequire } from 'node:module'
-const require = createRequire(import.meta.url)
-export const readJSON = (path) => require(path)//importar y pasar ruta del json
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const require = createRequire(import.meta.url);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export const readJSON = (relativePath) => {
+    const absolutePath = resolve(__dirname, relativePath);
+    return require(absolutePath);
+};   
