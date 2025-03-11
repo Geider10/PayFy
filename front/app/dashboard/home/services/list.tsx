@@ -10,13 +10,14 @@ import {
   ScrollView,
   View,
 } from "react-native";
+import {useServiceStore} from '@/hooks/useServiceStore';
 
 export default function ServicesList() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getCategories();
+    // getCategories();
   }, []);
 
   const getCategories = async () => {

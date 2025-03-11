@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
-import axiosApi from "./axiosApi";
+import axiosApi from './axiosApi';
+import axios from 'axios';
 
 const AUTH_URI = "/auth";
 

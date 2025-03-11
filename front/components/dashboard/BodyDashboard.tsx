@@ -18,22 +18,29 @@ const BodyDashboard = () => {
   const [pressCards, setPressCards] = useState(true);
   const [loading, setLoading] = useState(true);
   const [userServices, setUserServices] = useState([]);
-  const { user } = useAuthStore();
+  const { user, token,startLogout } = useAuthStore();
 
   const getUserData = async () => {
     setLoading(true);
     const { ok, data } = await apiGetUserServices(user.id!);
+    console.log(data);
+    if (data.error) {
+      startLogout();
+      return;
+    }
     if (ok) {
       setUserServices(data);
       setLoading(false);
       return;
     }
+    // else{
+    //   startLogout()
+    // }
     setLoading(false);
   };
 
   useEffect(() => {
     getUserData();
-    apiGetUserDebts(user.id!);
   }, []);
 
   if (loading) {

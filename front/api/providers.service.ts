@@ -1,6 +1,5 @@
 import { AxiosError } from "axios";
 import axiosApi from "./axiosApi";
-
 const PROVIDERS_URI = "/provider";
 
 export type AddService = {

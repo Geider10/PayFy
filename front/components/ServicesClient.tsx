@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo} from 'react'
 import { Colors, ColorsBase } from '@/constants/Colors'
 import { useColorScheme } from '@/hooks/useColorScheme.web'
 import { Text, View } from 'react-native'
