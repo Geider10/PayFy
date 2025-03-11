@@ -1,15 +1,17 @@
 import { userModel } from '../models/user.model.js';
-import { readJSON } from '../utils/utils.js';
+import {categories} from '../data/categories.js';
+import {companies} from '../data/companies.js';
+import {debts} from '../data/debts.js';    
 
 export class ProviderService {
     static async getCategories() {
-        const categoriesList = readJSON('../data/categories.json');
+        const categoriesList = categories
         if (categoriesList.length === 0) throw new Error('There are not categories in API');
         return categoriesList;
     }
 
     static async getCompanies({ categoryId }) {
-        const companiesList = readJSON('../data/companies.json');
+        const companiesList = companies
         if (companiesList.length === 0) throw new Error('There are not companies in API');
         const filterCompanies = companiesList.filter(c => c.category.id == categoryId);
         if (filterCompanies.length === 0) throw new Error('There are not companies in this category');
@@ -19,7 +21,7 @@ export class ProviderService {
     static async addServiceUser({ serviceBody }) {
         const { serviceId, clientId, userId } = serviceBody; //body: userId, serviceId, clientId
         //get companies 
-        const companiesList = readJSON('../data/companies.json');
+        const companiesList = companies
         if (companiesList.length === 0) throw new Error('There are not companies in API');
         //get service by serviceId
         const service = companiesList.find(s => s.serviceId == serviceId);
@@ -38,7 +40,7 @@ export class ProviderService {
     }
 
     static async getDebtsUser({ clientId, serviceId, debtId }) {
-        const debtsList = readJSON('../data/debts.json');
+        const debtsList = debts
         if (debtsList.length === 0) throw new Error('There are no debts in API');
         const user = await userModel.findById(clientId).lean();
         if (!user) throw new Error('User no found');
@@ -58,7 +60,7 @@ export class ProviderService {
 
     //get one debt by invoice_Id
     static async getServicesUser({ id }) {
-        const companiesList = await readJSON('../data/companies.json');
+        const companiesList = companies
         if (companiesList.length === 0) throw new Error('There are not companies in API');
         const user = await userModel.findById(id);
         if (!user) throw new Error('User no found');

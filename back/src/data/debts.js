@@ -1,4 +1,4 @@
-[
+export const debts = [
   {
     "company": {
       "serviceId": "0005"

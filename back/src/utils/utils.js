@@ -29,7 +29,7 @@ export const formatDate = (date) => {
     return format(new Date(date), 'dd/MM/yyy')
 }
 
-//permite leer archivos json con moduls 
+//permite leer archivos con rutas relativas
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';

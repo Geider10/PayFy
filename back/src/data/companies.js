@@ -1,4 +1,4 @@
-[
+export const companies = [
     {
       "serviceId": "0001",
       "name": "Edenor",
