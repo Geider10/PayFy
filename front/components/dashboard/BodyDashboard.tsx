@@ -21,7 +21,7 @@ const BodyDashboard = () => {
   const { user,startLogout } = useAuthStore();
 
   const getUserData = async () => {
-    console.log(user.userName, user.userLastName, user.userEmail, user._id);
+    // console.log(user.userName, user.userLastName, user.userEmail, user._id);
     setLoading(true);
     const { ok, data } = await apiGetUserServices(String(user._id));
     if (data.error) {
