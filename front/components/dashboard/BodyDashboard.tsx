@@ -18,12 +18,12 @@ const BodyDashboard = () => {
   const [pressCards, setPressCards] = useState(true);
   const [loading, setLoading] = useState(true);
   const [userServices, setUserServices] = useState([]);
-  const { user, token,startLogout } = useAuthStore();
+  const { user,startLogout } = useAuthStore();
 
   const getUserData = async () => {
+    console.log(user.userName, user.userLastName, user.userEmail, user._id);
     setLoading(true);
-    const { ok, data } = await apiGetUserServices(user.id!);
-    console.log(data);
+    const { ok, data } = await apiGetUserServices(String(user._id));
     if (data.error) {
       startLogout();
       return;
@@ -33,9 +33,6 @@ const BodyDashboard = () => {
       setLoading(false);
       return;
     }
-    // else{
-    //   startLogout()
-    // }
     setLoading(false);
   };
 
