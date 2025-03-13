@@ -9,40 +9,7 @@ import { ThemedView } from '../ThemedView'
 import { ThemedText } from '../ThemedText'
 import IconStatus from '../IconStatus'
 import {ServiceCard} from './ServiceCard';
-//  const data = [
-// 	{
-// 		type: 'Electricidad',
-// 		Empresa: 'EDENOR',
-// 		Client: '88698235',
-// 		status: 'Atrasado',
-// 		fechVen: '01/01/2025',
-// 		totalPagar: '75.900',
-// 	},
-// 	{
-// 		type: 'Agua',
-// 		Empresa: 'EDENOR',
-// 		Client: '88698235',
-// 		status: 'Pendiente',
-// 		fechVen: '01/01/2025',
-// 		totalPagar: '75.900',
-// 	},
-// 	{
-// 		type: 'Gas',
-// 		Empresa: 'MetroGas',
-// 		Client: '88698235',
-// 		status: 'Pagado',
-// 		fechVen: '01/01/2025',
-// 		totalPagar: '75.900',
-// 	},
-// 	{
-// 		type: 'Internet',
-// 		Empresa: 'Movistar',
-// 		Client: '88698235',
-// 		status: 'Pagado',
-// 		fechVen: '01/01/2025',
-// 		totalPagar: '75.900',
-// 	},
-// ]
+
 const servicesUser = [
 	{
 		serviceId : '0001',
@@ -98,8 +65,8 @@ const ServicesClient = ({servicesList}:{servicesList?:any[]}) => {
 					</ThemedText>
 				</ThemedView>
 			)}
+            keyboardShouldPersistTaps = 'handled'
 			scrollEnabled
-			keyboardShouldPersistTaps='handled'
 			keyExtractor={(item) => item.serviceId}
 			renderItem={({ item }) => (
 				<ServiceCard name = {item.name} picture_url= {item.picture_url}/>

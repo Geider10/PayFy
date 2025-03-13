@@ -5,19 +5,19 @@ import { Button, Icon } from "react-native-paper";
 import HeaderApp from "./HeaderApp";
 import { ThemedText } from "../ThemedText";
 import ServicesClient from "./ServicesClient";
-import AllCards from "./AllCards";
 import TotalPayment from "./TotalPayment";
 import { IconSymbol } from "../ui/IconSymbol";
 import LoadingScreen from "@/app/loading";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { apiGetUserDebts, apiGetUserServices } from "@/api/providers.service";
 import { router } from "expo-router";
-
+import DebtsClient from "./DebtsClient";
 // based on /components/BodyDashboard by GioPati
 const BodyDashboard = () => {
   const [pressCards, setPressCards] = useState(true);
   const [loading, setLoading] = useState(true);
   const [userServices, setUserServices] = useState([]);
+  const [userDebts, setUserDebts] = useState([])
   const { user,startLogout } = useAuthStore();
 
   const getUserData = async () => {
@@ -168,14 +168,14 @@ const BodyDashboard = () => {
                     : Colors.light.background,
                 }}
               >
-                Mis Tarjetas
+                Facturas
               </ThemedText>
             </Button>
           </View>
           {pressCards ? (
             <ServicesClient servicesList={userServices} />
           ) : (
-            <AllCards />
+            <DebtsClient debtsList={userDebts}/>
           )}
         </View>
       )}

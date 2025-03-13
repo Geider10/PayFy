@@ -12,35 +12,41 @@ import { router } from 'expo-router'
 import { useColorScheme } from '@/hooks/useColorScheme.web'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-export const DebtCard = () => {
+type DebtProps = {
+    invoice_id : string,
+    empresa : string,
+    amount : string,
+    due_date : string
+}
+const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
     const theme = useColorScheme() ?? 'light'
     const insets = useSafeAreaInsets()
     return (
-<Card
-mode='contained'
-style={{
-    borderWidth: 0.2,
-    borderColor: 'black',
-    backgroundColor:
-        theme === 'light'
-            ? Colors.light.background
-            : Colors.dark.background,
-    marginBottom: 16,
-}}
->
-<Card.Content style={{ gap: 10 }}>
-    <ThemedView
+        <Card
+        mode='contained'
         style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            borderWidth: 0.2,
+            borderColor: 'black',
+            backgroundColor:
+                theme === 'light'
+                    ? Colors.light.background
+                    : Colors.dark.background,
+            marginBottom: 16,
         }}
-    >
-        <View
-            style={{
-                flexDirection: 'row',
-            }}
         >
-            {item.category.name === 'Agua' ? (
+        <Card.Content style={{ gap: 10 }}>
+            <ThemedView
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                }}
+            >
+            <View
+                style={{
+                    flexDirection: 'row',
+                }} 
+            >
+             {/* {item.category.name === 'Agua' ? (
                 <IconWater
                     bgColor={ColorsBase.blue50}
                     color={ColorsBase.blue400}
@@ -72,30 +78,30 @@ style={{
                         borderRadius: 10,
                     }}
                 />
-            )}
+            )}    */}
 
             <ThemedView style={{ marginLeft: 10 }}>
-                <ThemedText type='defaultSemiBold'>
+                {/* <ThemedText type='defaultSemiBold'>
                     {item.category.name}
-                </ThemedText>
+                </ThemedText> */}
                 <ThemedText
                     type='default'
-                    style={{
-                        color:
-                            item.category.name == 'Agua'
-                                ? ColorsBase.blue400
-                                : item.type === 'Gas'
-                                ? ColorsBase.red400
-                                : item.type === 'Internet'
-                                ? '#834E9C'
-                                : ColorsBase.yellow400,
-                    }}
+                    // style={{
+                    //     color:
+                    //         item.category.name == 'Agua'
+                    //             ? ColorsBase.blue400
+                    //             : item.type === 'Gas'
+                    //             ? ColorsBase.red400
+                    //             : item.type === 'Internet'
+                    //             ? '#834E9C'
+                    //             : ColorsBase.yellow400,
+                    // }}
                 >
-                    {item.name}
+                    {empresa}
                 </ThemedText>
             </ThemedView>
         </View>
-        <IconStatus status={item.status} />
+        {/* <IconStatus status={item.status} /> */}
     </ThemedView>
 
     <ThemedText
@@ -105,12 +111,12 @@ style={{
             backgroundColor: ColorsBase.cyan100
         }}
     >
-        N° Cliente{' '}
+        N° Cliente{invoice_id}
         <ThemedText
             type='defaultSemiBold'
             style={{ color: ColorsBase.cyan500 }}
         >
-            {item.registeredUsers[0].clienteId}
+            {/* {item.registeredUsers[0].clienteId} */}
         </ThemedText>
         <MaterialCommunityIcons
             name='content-copy'
@@ -118,7 +124,6 @@ style={{
             color={ColorsBase.cyan500}
         />
     </ThemedText>
-    {/* </ThemedView> */}
     <View
         style={{
             flexDirection: 'row',
@@ -126,7 +131,7 @@ style={{
         }}
     >
         <ThemedText>Vencimiento</ThemedText>
-        <ThemedText>{item.fechVen?item.fechVen:"30/02/2025"}</ThemedText>
+        <ThemedText>{due_date}</ThemedText>
     </View>
     <View
         style={{
@@ -135,7 +140,7 @@ style={{
         }}
     >
         <ThemedText>Total a pagar</ThemedText>
-        <ThemedText> ARS $ {item.totalPagar?item.totalPagar:"75.900"}</ThemedText>
+        <ThemedText> ARS $ {amount}</ThemedText>
     </View>
     <View
         style={{
@@ -155,7 +160,7 @@ style={{
             }}
             onPress={() =>
                 router.push(
-                    `/dashboard/home/payment/${item.Client}`
+                    `/dashboard/home/payment/${invoice_id}`
                 )
             }
         >
@@ -178,6 +183,7 @@ style={{
             </ThemedText>
         </Button>
     </View>
-</Card.Content>
+    </Card.Content>
 </Card>					
 )}
+export default DebtCard
