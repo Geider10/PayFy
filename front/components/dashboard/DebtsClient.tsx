@@ -11,41 +11,37 @@ const debtsClient = [
         empresa: 'EDESUR',
         cliente_id: '88698235',
         status: 'Atrasado',
-        due_date: '01/01/2025',
-        amount: '75.900',
-        invoice_id: "INV-20240220-MOV001"
-
+        due_date: '15/02/2025',
+        amount: '45.200',
+        invoice_id: "INV-20250215-ED001"
     },
     {
         type: 'Agua',
-        empresa: 'EDENOR',
+        empresa: 'AySA',
         cliente_id: '88698235',
         status: 'Pendiente',
-        due_date: '01/01/2025',
-        amount: '75.900',
-        invoice_id: "INV-20240310-PER002"
-
+        due_date: '10/03/2025',
+        amount: '19.800',
+        invoice_id: "INV-20250310-AY002"
     },
     {
         type: 'Gas',
         empresa: 'MetroGas',
         cliente_id: '88698235',
         status: 'Pagado',
-        due_date: '01/01/2025',
-        amount: '75.900',
-        invoice_id: "INV-20240405-CLA003"
-
+        due_date: '05/04/2025',
+        amount: '31.600',
+        invoice_id: "INV-20250405-MG003"
     },
     {
         type: 'Internet',
         empresa: 'Movistar',
         cliente_id: '88698235',
-        status: 'Pagado',
-        due_date: '01/01/2025',
-        amount: '75.900',
-        invoice_id: "INV-20240228-MET004"
-
-    },
+        status: 'Pendiente',
+        due_date: '28/02/2025',
+        amount: '16.500',
+        invoice_id: "INV-20250228-MV004"
+    }
 ]
 const DebtsClient = ( {debtsList}:{debtsList?:any[]}) => {
     return(
@@ -61,11 +57,6 @@ const DebtsClient = ( {debtsList}:{debtsList?:any[]}) => {
 						gap: 10,
 					}}
 				>
-					{/* <Icon
-						source={'check-decagram-outline'}
-						size={40}
-						color={'#75C975'}
-					/> */}
 					<ThemedText
 						type='title'
 						style={{ color: ColorsBase.cyan400 }}

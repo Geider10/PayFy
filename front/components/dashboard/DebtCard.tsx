@@ -34,7 +34,7 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
             marginBottom: 16,
         }}
         >
-        <Card.Content style={{ gap: 10 }}>
+        <Card.Content style={{ gap: 5 }}>
             <ThemedView
                 style={{
                     flexDirection: 'row',
@@ -80,31 +80,21 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
                 />
             )}    */}
 
-            <ThemedView style={{ marginLeft: 10 }}>
-                {/* <ThemedText type='defaultSemiBold'>
-                    {item.category.name}
-                </ThemedText> */}
+            <ThemedView>
                 <ThemedText
                     type='default'
-                    // style={{
-                    //     color:
-                    //         item.category.name == 'Agua'
-                    //             ? ColorsBase.blue400
-                    //             : item.type === 'Gas'
-                    //             ? ColorsBase.red400
-                    //             : item.type === 'Internet'
-                    //             ? '#834E9C'
-                    //             : ColorsBase.yellow400,
-                    // }}
+                    style={{
+                        color: ColorsBase.cyan500,
+                        fontWeight : 'bold'
+                    }}
                 >
                     {empresa}
                 </ThemedText>
             </ThemedView>
         </View>
-        {/* <IconStatus status={item.status} /> */}
     </ThemedView>
 
-    <ThemedText
+    {/* <ThemedText
         type='default'
         style={{
             color: ColorsBase.cyan500,
@@ -112,18 +102,12 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
         }}
     >
         N° Cliente{invoice_id}
-        <ThemedText
-            type='defaultSemiBold'
-            style={{ color: ColorsBase.cyan500 }}
-        >
-            {/* {item.registeredUsers[0].clienteId} */}
-        </ThemedText>
         <MaterialCommunityIcons
             name='content-copy'
             size={18}
             color={ColorsBase.cyan500}
         />
-    </ThemedText>
+    </ThemedText> */}
     <View
         style={{
             flexDirection: 'row',
@@ -140,7 +124,7 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
         }}
     >
         <ThemedText>Total a pagar</ThemedText>
-        <ThemedText> ARS $ {amount}</ThemedText>
+        <ThemedText>$ {amount}</ThemedText>
     </View>
     <View
         style={{
@@ -156,7 +140,6 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
             textColor={ColorsBase.cyan500}
             style={{
                 borderColor: ColorsBase.cyan500,
-                marginEnd: 10,
             }}
             onPress={() =>
                 router.push(
@@ -168,7 +151,7 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
                 type='default'
                 style={{ color: ColorsBase.cyan500 }}
             >
-                Ver Detalles
+                Ver detalles
             </ThemedText>
         </Button>
         <Button
