@@ -93,21 +93,6 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
             </ThemedView>
         </View>
     </ThemedView>
-
-    {/* <ThemedText
-        type='default'
-        style={{
-            color: ColorsBase.cyan500,
-            backgroundColor: ColorsBase.cyan100
-        }}
-    >
-        N° Cliente{invoice_id}
-        <MaterialCommunityIcons
-            name='content-copy'
-            size={18}
-            color={ColorsBase.cyan500}
-        />
-    </ThemedText> */}
     <View
         style={{
             flexDirection: 'row',
@@ -142,9 +127,7 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
                 borderColor: ColorsBase.cyan500,
             }}
             onPress={() =>
-                router.push(
-                    `/dashboard/home/payment/${invoice_id}`
-                )
+                router.push(`/dashboard/home/invoice/${invoice_id}`)
             }
         >
             <ThemedText
