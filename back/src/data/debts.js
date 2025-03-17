@@ -4,7 +4,8 @@
 export const debts = [
   {
     "company": {
-      "serviceId": "0001"
+      "serviceId": "0001",
+      "name": "Edenor"
     },
     "client_id": "11111111",
     "client_description": "Suministro de electricidad comercial",
@@ -15,7 +16,8 @@ export const debts = [
   },
   {
     "company": {
-      "serviceId": "0002"
+      "serviceId": "0002",
+      "name": "Edesur"
     },
     "client_id": "AAAAAAAA",//cliente 2
     "client_description": "Suministro de electricidad comercial",
@@ -26,7 +28,8 @@ export const debts = [
   },
   {
     "company": {
-      "serviceId": "0002"
+      "serviceId": "0002",
+       "name": "Edesur"
     },
     "client_id": "88888888", //cliente 1
     "client_description": "Suministro de electricidad comercial",
@@ -37,7 +40,8 @@ export const debts = [
   },
   {
     "company": {
-      "serviceId": "0005"
+      "serviceId": "0005",
+      "name": "Movistar",
     },
     "client_id": "22222222",
     "client_description": "Servicio de internet hogar",
@@ -48,7 +52,8 @@ export const debts = [
   },
   {
     "company": {
-      "serviceId": "0005"
+      "serviceId": "0005",
+      "name": "Movistar",
     },
     "client_id": "22222222",
     "client_description": "Servicio de internet hogar",
@@ -59,7 +64,8 @@ export const debts = [
   },
   {
     "company": {
-      "serviceId": "0007"
+      "serviceId": "0007",
+      "name": "Metrogas",
     },
     "client_id": "33333333",
     "client_description": "Consumo de gas domiciliario",
@@ -70,7 +76,8 @@ export const debts = [
   },
   {
     "company": {
-      "serviceId": "0010"
+      "serviceId": "0010",
+      "name": "Aysa",
     },
     "client_id": "44444444",
     "client_description": "Servicio de agua potable",
@@ -81,7 +88,8 @@ export const debts = [
   },
   {
     "company": {
-      "serviceId": "0010"
+      "serviceId": "0010",
+      "name": "Aysa",
     },
     "client_id": "BBBBBBBB",
     "client_description": "Servicio de agua potable",
