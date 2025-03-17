@@ -1,3 +1,7 @@
+//cliente_Id: este Id es unico y el servicio se relaciona con el usuario a traves del mismo
+//registeredUsers: tiene el ID de los usuarios, no tiene usuarios repetidos
+
+
 export const companies = [
     {
       "serviceId": "0001",
@@ -8,7 +12,9 @@ export const companies = [
         "id": "01"
       },
       "registeredUsers": [
-       
+        {
+          "client_Id": "11111111"
+        }
       ]
     },
     {
@@ -24,7 +30,7 @@ export const companies = [
             "client_Id": "88888888"
         },
         {
-            "client_Id": "33333333"
+            "client_Id": "AAAAAAAA"
         }
       ]
     },
@@ -49,9 +55,6 @@ export const companies = [
         "id": "02"
       },
       "registeredUsers": [
-        {
-          "client_Id": "88888888"
-        }
       ]
     },
     {
@@ -64,7 +67,7 @@ export const companies = [
       },
       "registeredUsers": [
         {
-          "client_Id": "88888888"
+          "client_Id": "22222222"
         }
       ]
     },
@@ -77,9 +80,7 @@ export const companies = [
         "id": "02"
       },
       "registeredUsers": [
-        {
-          "client_Id": "88888888"
-        }
+      
       ]
     },
     {
@@ -92,7 +93,7 @@ export const companies = [
       },
       "registeredUsers": [
         {
-          "client_Id": "88888888"
+          "client_Id": "33333333"
         }
       ]
     },
@@ -117,9 +118,6 @@ export const companies = [
         "id": "03"
       },
       "registeredUsers": [
-        {
-          "client_Id": "33333333"
-        }
       ]
     },
     {
@@ -132,10 +130,10 @@ export const companies = [
       },
       "registeredUsers": [
         {
-          "client_Id": "88888888"
+          "client_Id": "44444444"
         },
         {
-          "client_Id": "33333333"
+          "client_Id": "BBBBBBBB"
         }
       ]
     },
@@ -173,7 +171,7 @@ export const companies = [
       },
       "registeredUsers": [
         {
-          "client_Id": "33333333"
+          "client_Id": "CCCCCCCC"
         }
       ]
     },

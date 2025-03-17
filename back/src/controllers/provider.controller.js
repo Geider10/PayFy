@@ -29,10 +29,9 @@ export class ProviderController{
     }
     static async getDebtsUser(req,res,next){
         try {
-            const {clientId, debtId} = req.body
+            const {clientId} = req.body
             const {serviceId} = req.query
-            console.log(clientId,debtId);
-            const debts = await ProviderService.getDebtsUser({clientId,serviceId,debtId})
+            const debts = await ProviderService.getDebtsUser({clientId,serviceId})
             res.status(200).json(debts)
         } catch (error) {
             next(error)

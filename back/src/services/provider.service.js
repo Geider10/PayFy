@@ -26,31 +26,31 @@ export class ProviderService {
         //get service by serviceId
         const service = companiesList.find(s => s.serviceId == serviceId);
         if (!service) throw new Error('Service no found');
-        //check if client is registered with service
+        //check if service has registered at user
         const isClienteId = service.registeredUsers.some(c => c.client_Id == clientId);
-        if (!isClienteId) throw new Error('Client no is registered with service');
-        //get user and check if user already has a service
+        if (!isClienteId) throw new Error('Service not have registered at user');
+        //get user and check if user already has added the service
         const user = await userModel.findById(userId);
         if (!user) throw new Error('User no found');
         const isService = user.userFavoriteServices.some(s => s.serviceId == serviceId);
         if (isService) return { success: true, message: 'service already is registered' };
-        user.userFavoriteServices.push({ serviceId });
+        user.userFavoriteServices.push({ serviceId, clientId });
         await user.save();
         return { success: true, message: 'suscribed success to service', user };
     }
 
-    static async getDebtsUser({ clientId, serviceId, debtId }) {
+    static async getDebtsUser({ clientId, serviceId}) {
         const debtsList = debts
         if (debtsList.length === 0) throw new Error('There are no debts in API');
         const user = await userModel.findById(clientId).lean();
         if (!user) throw new Error('User no found');
-        //get debts only services is registered
+        //get debts ID if services already is registered
         let debtsByService = debtsList.filter(debt =>
-            user.userFavoriteServices.some(service => service.serviceId == debt.company.serviceId)
+            user.userFavoriteServices.some(service => service.clientId == debt.client_id)
         );
-        //and if debt match with client_Id
-        debtsByService = debtsByService.filter(debt => debt.client_id == debtId);
-        if (serviceId !== undefined) { //filter por categoria
+        console.log(debtsByService);
+        //filter debts by query params
+        if (serviceId !== undefined) {
             const filterByCategory = debtsByService.filter(d => d.company.serviceId == serviceId);
             return filterByCategory;
         }
@@ -58,7 +58,6 @@ export class ProviderService {
         return debtsByService;
     }
 
-    //get one debt by invoice_Id
     static async getServicesUser({ id }) {
         const companiesList = companies
         if (companiesList.length === 0) throw new Error('There are not companies in API');

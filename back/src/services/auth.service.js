@@ -18,7 +18,7 @@ export class AuthService{
         if(!user) throw new Error('User no found by email')
         const validatePass = await verifyHashData(userPassword, user.userPassword)
         if(!validatePass) throw new Error('Password no match with email')
-        const token = jwt.sign({id : user._id}, SECRET_KEY, {expiresIn : '5m'} )
+        const token = jwt.sign({id : user._id}, SECRET_KEY, {expiresIn : '15m'} )
         
         return {token, user}
     }
