@@ -49,7 +49,7 @@ export const apiGetUserServices = async (userId:string) => {
 
 export const apiGetUserDebts = async (userId:string) => {
     try {
-        const { data } = await axiosApi.get(`${PROVIDERS_URI}/debts`);
+        const { data } = await axiosApi.post(`${PROVIDERS_URI}/debts`,{clientId : userId});
         return { ok: true, data }
     } catch (error:unknown) {
         console.log(error)

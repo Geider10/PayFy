@@ -2,23 +2,13 @@ import {Card, Button} from 'react-native-paper';
 import {ThemedText} from '../ThemedText';
 import {ThemedView} from '../ThemedView';
 import {View} from 'react-native';
-import IconWater from '@/assets/svgs/icon-water'
-import IconElectricity from '@/assets/svgs/icon-electricity'
-import IconFlame from '@/assets/svgs/icon-flame'
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import IconStatus from '../IconStatus'
 import { Colors, ColorsBase } from '@/constants/Colors'
 import { router } from 'expo-router'
 import { useColorScheme } from '@/hooks/useColorScheme.web'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import {Debt} from '@/types/types';
 
-type DebtProps = {
-    invoice_id : string,
-    empresa : string,
-    amount : string,
-    due_date : string
-}
-const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
+const DebtCard : React.FunctionComponent<Debt> =  ({due_date, invoice_id, amount, company }) => {
     const theme = useColorScheme() ?? 'light'
     const insets = useSafeAreaInsets()
     return (
@@ -46,40 +36,6 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
                     flexDirection: 'row',
                 }} 
             >
-             {/* {item.category.name === 'Agua' ? (
-                <IconWater
-                    bgColor={ColorsBase.blue50}
-                    color={ColorsBase.blue400}
-                    size={32}
-                    scale={1.4}
-                />
-            ) : item.category.name === 'Luz' ? (
-                <IconElectricity
-                    scale={1.4}
-                    size={32}
-                    color={ColorsBase.yellow400}
-                    bgColor={ColorsBase.yellow50}
-                />
-            ) : item.category.name === 'Gas' ? (
-                <IconFlame
-                    bgColor={ColorsBase.red50}
-                    color={ColorsBase.red400}
-                    size={32}
-                    scale={1.5}
-                />
-            ) : (
-                <MaterialIcons
-                    name='wifi'
-                    color={'#834E9C'}
-                    size={30}
-                    style={{
-                        backgroundColor: '#e2cced',
-                        padding: 8,
-                        borderRadius: 10,
-                    }}
-                />
-            )}    */}
-
             <ThemedView>
                 <ThemedText
                     type='default'
@@ -88,7 +44,7 @@ const DebtCard = ({invoice_id, empresa, amount, due_date}:  DebtProps) => {
                         fontWeight : 'bold'
                     }}
                 >
-                    {empresa}
+                    {company.name}
                 </ThemedText>
             </ThemedView>
         </View>

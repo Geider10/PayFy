@@ -36,7 +36,7 @@ const servicesUser = [
 const ServicesClient = ({servicesList}:{servicesList?:any[]}) => {
 	return (
 		<Animated.FlatList
-			style={{flexDirection: 'row' , gap: 20}}
+			style={{flexDirection: 'row', flexWrap : 'wrap' , gap: 10}}
 			data={servicesList?.length !== 0 ? servicesList : servicesUser}
 			ListEmptyComponent={() => (
 				<ThemedView

@@ -12,16 +12,16 @@ import { useAuthStore } from "@/hooks/useAuthStore";
 import { apiGetUserDebts, apiGetUserServices } from "@/api/providers.service";
 import { router } from "expo-router";
 import DebtsClient from "./DebtsClient";
+import {Debt} from '@/types/types';
 // based on /components/BodyDashboard by GioPati
 const BodyDashboard = () => {
   const [pressCards, setPressCards] = useState(true);
   const [loading, setLoading] = useState(true);
   const [userServices, setUserServices] = useState([]);
-  const [userDebts, setUserDebts] = useState([])
+  const [userDebts, setUserDebts] = useState<Array<Debt>>([])
   const { user,startLogout } = useAuthStore();
 
-  const getUserData = async () => {
-    // console.log(user.userName, user.userLastName, user.userEmail, user._id);
+  const getServicesUser = async () => {
     setLoading(true);
     const { ok, data } = await apiGetUserServices(String(user._id));
     if (data.error) {
@@ -35,9 +35,14 @@ const BodyDashboard = () => {
     }
     setLoading(false);
   };
-
+  const getDebtsUSer = async () => {
+    const {data} = await apiGetUserDebts(String(user._id))
+    console.log(data[0]);
+    setUserDebts(data)
+  }
   useEffect(() => {
-    getUserData();
+    getServicesUser();
+    getDebtsUSer()
   }, []);
 
   if (loading) {

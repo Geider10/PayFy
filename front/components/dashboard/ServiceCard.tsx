@@ -22,8 +22,7 @@ const styles = StyleSheet.create({
         height: 100,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: 'black',
-        borderWidth: 1,
+
     },
     img: {
         width: 60,
@@ -31,6 +30,6 @@ const styles = StyleSheet.create({
         borderRadius: 100
     },
     text: {
-        fontSize: 20,
+        fontSize: 16,
     }
 })
