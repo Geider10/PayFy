@@ -1,6 +1,6 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ColorsBase, Colors } from "@/constants/Colors";
-import { useLocalSearchParams, Link, router } from "expo-router";
+import { useLocalSearchParams, Link, router, RelativePathString} from "expo-router";
 import { ScrollView, View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import {Button} from 'react-native-paper';
@@ -8,6 +8,7 @@ import {useEffect, useState} from 'react';
 import {apiGetUserDebts} from '@/api/providers.service';
 import {useAuthStore} from '@/hooks/useAuthStore';
 import {Debt} from '@/types/types';
+import { HeaderToBack } from "@/components/HeaderToBack";
 export default function Route() {
 
   const { invoiceId } = useLocalSearchParams<{ invoiceId: string }>();
@@ -27,14 +28,7 @@ export default function Route() {
   return (
     <ScrollView style={{padding:15, flex:1}} contentContainerStyle={{justifyContent:"space-between"}}>
       <View style={styles.contentCard}> 
-        <View style= {{flexDirection : 'row', gap : 10,alignItems : 'center'}}>
-          <Link href={"/dashboard/home"} asChild>
-            <MaterialCommunityIcons name="arrow-left" size={32} color="black" /> 
-          </Link>
-          <ThemedText type="title" style={{color : ColorsBase.cyan400}}>
-            Factura 
-          </ThemedText>
-        </View>
+          <HeaderToBack url={"/dashboard/home" as RelativePathString} title={"Factura"}/>
         {
           debt ? (
             <>

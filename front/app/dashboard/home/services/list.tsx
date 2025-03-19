@@ -1,10 +1,6 @@
-import {
-  apiGetServicesCategories,
-} from "@/api/providers.service";
-import HeaderApp from "@/components/dashboard/HeaderApp";
+import { apiGetServicesCategories } from "@/api/providers.service";
 import CategoryGroup, { ServiceCategoryT } from "@/components/services/CategoryGroup";
 import CategorySkeleton from "@/components/services/ServicesListSkeleton";
-import { ThemedText } from "@/components/ThemedText";
 import { useEffect, useState } from "react";
 import {
   ScrollView,
@@ -16,10 +12,6 @@ export default function ServicesList() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // getCategories();
-  }, []);
-
   const getCategories = async () => {
     const { ok, data } = await apiGetServicesCategories();
     if (ok) {
@@ -28,20 +20,21 @@ export default function ServicesList() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
   return (
     <ScrollView
       style={{ height: "100%" }}
-      contentContainerStyle={{ flex: 1, gap: 15 }}
+      contentContainerStyle={{ flex: 1}}
     >
-      <HeaderApp />
-      <ThemedText type="subtitle">Selecciona tu Proveedor</ThemedText>
       {loading ? (
         <View>
           <CategorySkeleton />
-          <CategorySkeleton />
         </View>
       ) : (
-        <View style={{ gap: 25 }}>
+        <View >
           {categories.map((cat: ServiceCategoryT) => {
             return <CategoryGroup key={cat.id} category={cat} />;
           })}

@@ -5,14 +5,15 @@ import { Button, Card, Divider, ProgressBar } from 'react-native-paper'
 import { useColorScheme } from '@/hooks/useColorScheme.web'
 import { ThemedText } from '../ThemedText'
 import { ThemedView } from '../ThemedView'
-
+import {router} from 'expo-router';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 //Based on /components/TotalPayment by GioPati
 
 interface PaymentProps {
 	progress: number
 }
-const TotalPayment: React.FC<PaymentProps> = ({ progress, debt }) => {
+const TotalPayment: React.FC<PaymentProps> = ({ progress}) => {
 	const theme = useColorScheme() ?? 'light'
 	return (
 		<>
@@ -105,23 +106,15 @@ const TotalPayment: React.FC<PaymentProps> = ({ progress, debt }) => {
 			<Button
 				mode='contained'
 				buttonColor='#333333'
-				style={{
-					width: '100%',
-					height: 48,
-					borderRadius: 32,
-				}}
+				style={styles.btnService}
+				onPress={()=> router.push("/dashboard/home/services/list")}
 			>
-				<ThemedText
-					type='default'
-					style={{
-						color:
-							theme !== 'light'
-								? Colors.light.text
-								: Colors.dark.text,
-					}}
-				>
-					Ir a pagar  ${'205.587'}
-				</ThemedText>
+				<View style={styles.btnServiceContent}>
+					<MaterialCommunityIcons name="plus" size={28} color="white" />
+					<ThemedText type='default' style={{color : Colors.dark.text}}>
+						Agregar Servicio
+					</ThemedText>
+				</View>
 			</Button>
 			<Divider
 				style={{ backgroundColor: ColorsBase.cyan400, height: 1 }}
@@ -143,6 +136,17 @@ const styles = StyleSheet.create({
 		alignSelf: 'flex-start',
 		paddingBottom: 16,
 	},
+	btnService : {
+		width: '100%',
+		height: 48,
+		borderRadius: 32,
+	},
+	btnServiceContent : {
+		flexDirection : 'row',
+		justifyContent : 'center',
+		alignItems : 'center',
+		gap : 5
+	}
 })
 
 export default memo(TotalPayment)

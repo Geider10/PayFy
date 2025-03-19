@@ -1,15 +1,11 @@
 import { apiGetServicesByCategory } from "@/api/providers.service";
 import { useEffect, useState } from "react";
 import { ThemedText } from "../ThemedText";
-import { ColorsBase } from "@/constants/Colors";
+import { ColorsBase, Colors } from "@/constants/Colors";
 import { CompanySkeleton } from "./ServicesListSkeleton";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import IconElectricitySimple from "@/assets/svgs/icon-electricity-simple";
-import IconFlameSimple from "@/assets/svgs/icon-flame-simple";
-import IconWaterSimple from "@/assets/svgs/icon-water-simple";
-import { MaterialIcons } from "@expo/vector-icons";
+import { ScrollView, TouchableOpacity, View, StyleSheet } from "react-native";
 import { router } from "expo-router";
-
+import IconCategorySelector from './IconCategorySelector';
 export type ServiceCategoryT = {
   name: string;
   id: string;
@@ -20,11 +16,7 @@ export type ApiCompanyT = {
   name: string;
 };
 
-export default function CategoryGroup({
-  category,
-}: {
-  category: ServiceCategoryT;
-}) {
+export default function CategoryGroup({category}: {category: ServiceCategoryT}) {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -40,16 +32,15 @@ export default function CategoryGroup({
     }
   };
   return (
-    <View style={{ gap: 4 }}>
+    <View >
         <View style={{flexDirection:"row", gap:8}}>
-        <IconCategorySelector catName={category.name}/>
-      <ThemedText
-        lightColor={ColorsBase.cyan500}
-        style={{ fontWeight: 700, fontSize: 17 }}
-      >
-        {category.name}
-      </ThemedText>
-
+            <IconCategorySelector catName={category.name}/>
+            <ThemedText
+              lightColor={Colors.light.text}
+              type="defaultSemiBold" 
+            >
+              {category.name}
+            </ThemedText>
         </View>
       {loading ? (
         <View style={{ flexDirection: "row", gap: 12 }}>
@@ -60,9 +51,9 @@ export default function CategoryGroup({
       ) : (
         <ScrollView
           horizontal
-          style={{ paddingVertical: 15 }}
+          style={{ paddingVertical: 20}}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ flexDirection: "row", gap: 8 }}
+          contentContainerStyle={{ flexDirection: "row"}}
         >
           {companies.map((comp: ApiCompanyT) => {
             return <CompanyBadge key={comp.serviceId} company={comp} />;
@@ -76,35 +67,29 @@ export default function CategoryGroup({
 function CompanyBadge({ company }: { company: ApiCompanyT }) {
   return (
     <TouchableOpacity onPress={()=>router.push(`/dashboard/home/services/add/${company.serviceId}?servName=${company.name}`)}
-      style={{
-        borderRadius: 24,
-        borderWidth: 1,
-        borderColor: ColorsBase.cyan300,
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 10,
-        paddingHorizontal: 16,
-        paddingVertical: 4,
-      }}
+      style={styles.contentCompany}
     >
       <View
-        style={{
-          width: 24,
-          height: 24,
-          backgroundColor: ColorsBase.cyan200,
-          borderRadius: 999,
-        }}
+        style={styles.imgCompany}
       ></View>
-      <Text>{company.name}</Text>
+      <ThemedText type="default" lightColor={Colors.light.text}>{company.name}</ThemedText>
     </TouchableOpacity>
   );
 }
 
-function IconCategorySelector({catName}:{catName:string}) {
-    if(catName === "Telefonía") return (<MaterialIcons name="phone" size={24} color={ColorsBase.cyan200}/>)
-    if(catName === "Luz") return <IconElectricitySimple size={24} color={ColorsBase.cyan200}/>
-    if(catName === "Gas") return <IconFlameSimple size={24} color={ColorsBase.cyan200}/>
-    if(catName === "Agua") return <IconWaterSimple size={24} color={ColorsBase.cyan200}/>
-    if(catName === "Medicina Prepaga") return <MaterialIcons name="medical-information" size={24} color={ColorsBase.cyan200}/>
 
-}
+
+const styles = StyleSheet.create({
+  contentCompany:{
+    alignItems: "center",
+    gap: 5,
+    paddingHorizontal: 16,
+    maxWidth: 120,
+  },
+  imgCompany:{
+    width: 30,
+    height: 30,
+    backgroundColor: ColorsBase.neutral200,
+    borderRadius: 999,
+  }
+})
