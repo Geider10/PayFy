@@ -1,13 +1,7 @@
 import { AUTH_STATUS } from "@/constants/enums/AuthStatus";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-interface UserInfo {
-    userEmail?: string;
-    userLastName?: string;
-    userName?: string;
-    _id?: string
-}
+import {UserInfo} from '@/types/types';
 
 export interface AuthState {
     status: AUTH_STATUS;
@@ -15,10 +9,16 @@ export interface AuthState {
     token?: string;
     errorMessage: { on?: "auth" | "reg", message?: string };
 }
+const useData = {
+    userEmail : '',
+    userLastName : '',
+    userName : '',
+    _id : '',
+}
 
 const initialState: AuthState = {
     status: AUTH_STATUS.checking,
-    user: {},
+    user: useData,
     token: undefined,
     errorMessage: {},
 };
@@ -29,7 +29,7 @@ export const authSlice = createSlice({
     reducers: {
         onChecking: (state) => {
             state.status = AUTH_STATUS.checking;
-            state.user = {};
+            state.user = useData;
             state.token = undefined;
             state.errorMessage = {};
         },
@@ -40,11 +40,11 @@ export const authSlice = createSlice({
             state.errorMessage = {};
         },
         onBadLogin: (state, { payload }: { payload: { on?: "auth" | "reg", message?: string } }) => {
-            (state.status = AUTH_STATUS.not_authenticated), (state.user = {}), (state.token = undefined);
+            (state.status = AUTH_STATUS.not_authenticated), (state.user = useData), (state.token = undefined);
             state.errorMessage = payload;
         },
         onBadRegister: (state, { payload }: { payload: { on?: "auth" | "reg", message?: string } }) => {
-            (state.status = AUTH_STATUS.not_authenticated), (state.user = {}), (state.token = undefined);
+            (state.status = AUTH_STATUS.not_authenticated), (state.user = useData), (state.token = undefined);
             state.errorMessage = payload;
         },
         clearErrormessage: (state) => {
@@ -52,7 +52,7 @@ export const authSlice = createSlice({
         },
         onLogOut: (state) => {
             state.status = AUTH_STATUS.not_authenticated;
-            state.user = {};
+            state.user = useData;
             state.token = undefined;
             state.errorMessage = {};
         },

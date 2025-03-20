@@ -1,18 +1,13 @@
 import { ColorsBase } from "@/constants/Colors";
-import { StyleSheet, View } from "react-native";
-import { ThemedText } from "../ThemedText";
-import fontStyles from "@/styles/fontStyles";
-import IconFlame from "@/assets/svgs/icon-flame";
+import { StyleSheet, View, Image } from "react-native";
 
-export default function UserProfileAvatar({ userName }: { userName: string }) {
+export default function UserProfileAvatar() {
   return (
     <View style={baseStyle.avatarContainer}>
-      <View style={[baseStyle.photoContainer, {}]}>
-        <IconFlame width={50} height={50}/>
+      <View style={[baseStyle.photoContainer]}>
+          <Image style={baseStyle.img} source={require('../../assets/images/IconPayFy.png')}></Image>
       </View>
-      <ThemedText style={[fontStyles.bold, { color: ColorsBase.cyan400 }]}>
-        {userName}
-      </ThemedText>
+    
     </View>
   );
 }
@@ -30,4 +25,8 @@ const baseStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent:"center"
   },
+  img : {
+    width : 70,
+    height : 70
+  }
 });

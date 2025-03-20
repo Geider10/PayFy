@@ -87,10 +87,6 @@ export default function ServiceAdd() {
   );
 }
 
-function StatusSnack({ type }: { type: "retarded" | "pending" | "payed" }) {
-  return <View></View>;
-}
-
 const styles = StyleSheet.create({
   contentService :{
     justifyContent : 'flex-end'

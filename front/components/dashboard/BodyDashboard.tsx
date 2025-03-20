@@ -37,7 +37,6 @@ const BodyDashboard = () => {
   };
   const getDebtsUSer = async () => {
     const {data} = await apiGetUserDebts(String(user._id))
-    console.log(data[0]);
     setUserDebts(data)
   }
   useEffect(() => {
