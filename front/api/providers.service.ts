@@ -3,9 +3,9 @@ import axiosApi from "./axiosApi";
 const PROVIDERS_URI = "/provider";
 
 export type AddService = {
-  userId: string;
-  clientId: string;
-  serviceId: string;
+  userId?: string;
+  clientId?: string;
+  serviceId?: string;
 };
 
 export const apiGetServicesCategories = async () => {

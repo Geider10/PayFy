@@ -7,7 +7,8 @@ import {
   View,
 } from "react-native";
 import {useServiceStore} from '@/hooks/useServiceStore';
-
+import { HeaderToBack } from "@/components/HeaderToBack";
+import {RelativePathString} from 'expo-router';
 export default function ServicesList() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,6 @@ export default function ServicesList() {
   const getCategories = async () => {
     const { ok, data } = await apiGetServicesCategories();
     if (ok) {
-      console.log(data);
       setCategories(data);
       setLoading(false);
     }
@@ -26,9 +26,10 @@ export default function ServicesList() {
   }, []);
   return (
     <ScrollView
-      style={{ height: "100%" }}
+      style={{ height: "100%"}}
       contentContainerStyle={{ flex: 1}}
     >
+      <HeaderToBack url={"/dashboard/home" as RelativePathString} title={"Elegí tu proveedor"}/>
       {loading ? (
         <View>
           <CategorySkeleton />

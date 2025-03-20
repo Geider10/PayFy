@@ -1,93 +1,88 @@
 import {
   AddService,
   apiAddService,
-  apiGetServicesByCategory,
-  apiGetServicesCategories,
 } from "@/api/providers.service";
 import authStyles from "@/components/auth/authStyles";
 import MyInputText from "@/components/auth/MyInputText";
 import SimpleButton from "@/components/auth/SimpleButton";
-import HeaderApp from "@/components/dashboard/HeaderApp";
-import IconStatus from "@/components/IconStatus";
 import { ThemedText } from "@/components/ThemedText";
 import { ColorsBase } from "@/constants/Colors";
 import { useAuthStore } from "@/hooks/useAuthStore";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, RelativePathString, router} from "expo-router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View , StyleSheet} from "react-native";
+import { HeaderToBack } from "@/components/HeaderToBack";
 
 export default function ServiceAdd() {
-  const [serverError, setServerError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [textModal, setTextModal] = useState("");
+  const [isOk, setIsOk] = useState(false)
   const { serviceId, servName } = useLocalSearchParams<{
     serviceId: string;
     servName: string;
   }>();
   const { user } = useAuthStore();
-  const { control, handleSubmit, getValues } = useForm<AddService>({
-    defaultValues: {
-      clientId: "88888888",
-      serviceId: serviceId,
-      userId: user.id,
-    },
-  });
-
+  const { control, handleSubmit, getValues} = useForm<AddService>();
+  
+  const serviceBody : AddService= {
+    userId : user._id,
+    serviceId : serviceId,
+    clientId: getValues().clientId
+  }
   const onHandleSubmit = async () => {
-    setServerError("");
-    setLoading(true);
-    const { data, ok } = await apiAddService(getValues());
+    setTextModal("");
+    const {data, ok } = await apiAddService(serviceBody);
+    setIsOk(ok)
     if (ok) {
-      console.log(data);
+      setTextModal("Servicio agregado exitosamente");
+      setTimeout(()=>{
+        router.push("/dashboard/home")
+      },3000)
       return;
     }
-    setServerError(data.message);
-    setLoading(false);
+    else {
+      setTextModal( `${servName} ${data.message}`);
+    }
   };
-
   return (
     <ScrollView
-      style={{ padding: 15, flex: 1 }}
-      contentContainerStyle={{ justifyContent: "space-between" }}
+      style={{flex: 1 }}
     >
-      <HeaderApp />
-      <ThemedText type="subtitle" style={{ paddingTop: 20 }}>
-        Ingresa tu número de cliente
-      </ThemedText>
-      <Text>{servName}</Text>
-      <ThemedText
-        style={{
-          color: ColorsBase.cyan500,
-          paddingVertical: 15,
-          paddingHorizontal: 5,
-          fontWeight: 500,
-        }}
-      >
-        Número de cliente:
-      </ThemedText>
-      {!!serverError && (
-        <View style={[authStyles.formBackError, { marginVertical: 12 }]}>
-          <Text>{serverError}</Text>
-        </View>
-      )}
-      <MyInputText
-        name="clientId"
-        iconName="person.2"
-        control={control}
-        placeholder="Ej: 123123123123"
-      />
-      <SimpleButton
-        onPress={handleSubmit(onHandleSubmit)}
-        style={{
-          marginVertical: 15,
-          borderRadius: 32,
-          backgroundColor: ColorsBase.neutral800,
-        }}
-      >
-        <ThemedText style={{ color: ColorsBase.neutral50, fontWeight: 700 }}>
-          Agregar Servicio
+      <HeaderToBack url={"/dashboard/home/services" as RelativePathString} title={servName}/>
+      <View style={styles.contentService}>
+        <ThemedText type="defaultSemiBold" style={{paddingBottom: 10 }}>
+          Número de cliente:
         </ThemedText>
-      </SimpleButton>
+        <MyInputText
+          name="clientId"
+          iconName="person.2"
+          control={control}
+          placeholder="Ej: 1122334455"
+        />
+        <SimpleButton
+          onPress={handleSubmit(onHandleSubmit)}
+          style={{
+            marginVertical: 15,
+            borderRadius: 32,
+            backgroundColor: ColorsBase.neutral800,
+          }}
+        >
+          <ThemedText style={{ color: ColorsBase.neutral50, fontWeight: 700 }}>
+            Agregar Servicio
+          </ThemedText>
+        </SimpleButton>
+        {isOk ?(
+          <View style={styles.contentModal}>
+            <ThemedText type="defaultSemiBold" style={{color : ColorsBase.cyan400}} >{textModal}</ThemedText>
+          </View>
+         
+        ) : (
+          <View style={styles.contentModal}>
+            <ThemedText type="defaultSemiBold" style={{color : ColorsBase.red400}} >{textModal}</ThemedText>
+         </View>
+        )
+        }
+      </View>
     </ScrollView>
   );
 }
@@ -95,3 +90,12 @@ export default function ServiceAdd() {
 function StatusSnack({ type }: { type: "retarded" | "pending" | "payed" }) {
   return <View></View>;
 }
+
+const styles = StyleSheet.create({
+  contentService :{
+    justifyContent : 'flex-end'
+  },
+  contentModal : {
+    alignItems : 'center'
+  }
+})
