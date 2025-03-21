@@ -58,6 +58,15 @@ const Dashboard = () => {
             ),
           }}
         />
+         <Tabs.Screen
+          name="paymentMethod"
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <TabBarIcon iconName="add-card" isFocused={focused} />
+            ),
+          }}
+        />
         <Tabs.Screen
           name="payments-list"
           options={{
@@ -67,15 +76,7 @@ const Dashboard = () => {
             ),
           }}
         />
-        <Tabs.Screen
-          name="notifications"
-          options={{
-            tabBarShowLabel: false,
-            tabBarIcon: ({ focused }) => (
-              <TabBarIcon iconName="notifications-none" isFocused={focused} />
-            ),
-          }}
-        />
+       
         <Tabs.Screen
           name="user"
           options={{

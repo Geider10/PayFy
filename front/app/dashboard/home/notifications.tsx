@@ -4,8 +4,8 @@ import { ColorsBase } from "@/constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity, View, FlatList } from "react-native";
 import Notification from "@/components/Notification";
-import HeaderApp from "@/components/dashboard/HeaderApp";
-
+import {HeaderToBack} from '@/components/HeaderToBack';
+import {RelativePathString} from 'expo-router';
 // based on /(auth)/(dashboard)/(tabs)/notifications by GioPati
 
 const data = [
@@ -29,25 +29,17 @@ const notifications = () => {
   const [selected, setSelected] = useState("Todos");
   return (
     <FlatList
-    contentContainerStyle={{padding:15}}
+      contentContainerStyle={{padding:15}}
       data={[]}
       renderItem={() => null}
       ListHeaderComponent={
-        <View style={{ gap: 20 }}>
-          <HeaderApp />
-          <TouchableOpacity style={styles.ButtonMarcar}>
-            <View style={styles.textWrapper}>
-              <ThemedText type="defaultSemiBold">Marcar como leído</ThemedText>
-            </View>
-          </TouchableOpacity>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <MaterialIcons name="announcement" size={30} color="black" />
-            <ThemedText type="title">Notificaciones</ThemedText>
-          </View>
+        <View>
+          <HeaderToBack url={"./" as RelativePathString} title="Notificaciones"/>
           <View
             style={{
               flexDirection: "row",
               gap: 8,
+              marginBottom : 20
             }}>
             <View style={styles.ButtonMarcarButtons}>
               {["Todos", "No leídos", "Leídos"].map((filter) => (
@@ -86,15 +78,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-end",
     alignSelf: "flex-end",
-  },
-  textWrapper: {
-    borderWidth: 1,
-    borderColor: "black",
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    alignSelf: "flex-start",
-    borderRadius: 8,
-    backgroundColor: "white",
   },
   filterLeidos: {
     backgroundColor: "white",

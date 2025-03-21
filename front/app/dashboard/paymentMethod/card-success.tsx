@@ -41,7 +41,7 @@ export default function CardSuccess() {
           <View style={styles.dottedLine} />
           <View style={styles.footer}>
             <Image
-              source={require("../../assets/images/visa-blue-logo-19529.png")}
+              source={require("../../../assets/images/visa-blue-logo-19529.png")}
               style={styles.logo}
             />
           </View>

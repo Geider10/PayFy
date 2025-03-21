@@ -47,7 +47,7 @@ const HeaderApp = () => {
 				<TouchableOpacity
 					onPress={() =>
 						router.navigate(
-							'/dashboard/notifications'
+							'/dashboard/home/notifications'
 						)
 					}
 				>
