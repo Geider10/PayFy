@@ -1,24 +1,13 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Link, router } from "expo-router";
+import {StyleSheet, ScrollView } from "react-native";
 import { CardForm } from "@/components/paymentMethod/CardForm";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import { ColorsBase } from "@/constants/Colors";
 import { ThemedView } from "@/components/ThemedView";
+import { HeaderToBack } from "@/components/HeaderToBack";
 
 const addView = () => {
   return (
     <ThemedView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity style={{width:45, height:45}} onPress={() => router.back()}>
-          <IconSymbol
-            name="arrow.backward"
-            size={24}
-            color={ColorsBase.neutral800}
-          />
-        </TouchableOpacity>
-        {/* <Link href = "/paymentMethod" > Back</Link> */}
-      </View>
-        <Text style={styles.headerText}> Registrar tarjeta</Text>
+      <HeaderToBack url="./" title="Agregar Tarjeta"/>
       <CardForm />
     </ThemedView>
   );
@@ -26,10 +15,8 @@ const addView = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop:45,
     flex: 1,
-    alignItems: "center",
-    padding: 20,
+    padding: 15,
   },
   headerContainer: {
     flexDirection: "row",

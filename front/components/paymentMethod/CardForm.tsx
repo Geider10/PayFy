@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal } from "react-native";
+import { View, Text, TextInput, StyleSheet, Modal } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { ColorsBase } from "@/constants/Colors";
+import { ColorsBase, Colors } from "@/constants/Colors";
 import { apiPostCards } from "@/api/cards.service";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { router } from "expo-router";
 import LoadingScreen from "@/app/loading";
-
+import {Button} from 'react-native-paper';
+import {ThemedText} from '@/components/ThemedText';
 export const CardForm = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
@@ -20,16 +21,17 @@ export const CardForm = () => {
 
   const {user, token} = useAuthStore();
   const handleCreateCard = async()=>{
-    setLoading(true);
-    console.log(token, user)
-    const {ok, data} = await apiPostCards({token:token!,userId:user.id! });
-    if(ok){
-      setLoading(false);
-      router.replace("/paymentMethod/card-success")
-      return;
-    }
-    console.log(data)
-    setLoading(false);
+    console.log('add card a DB');
+    // setLoading(true);
+    // console.log(token, user)
+    // const {ok, data} = await apiPostCards({token:token!,userId:user.id! });
+    // if(ok){
+    //   setLoading(false);
+    //   router.replace("/dashboard/paymentMethod/card-success")
+    //   return;
+    // }
+    // console.log(data)
+    // setLoading(false);
 
   }
 
@@ -107,22 +109,25 @@ export const CardForm = () => {
         placeholder="correo@ejemplo.com" 
       />
 
-      <TouchableOpacity style={styles.button} onPress={() => handleCreateCard()}>
-        <Text style={styles.buttonText}>Registrar Tarjeta</Text>
-      </TouchableOpacity>
+      <Button 
+       mode = "contained"
+       buttonColor={ColorsBase.neutral800} 
+       onPress={handleCreateCard} 
+       style={{borderRadius : 32}}>
+        <ThemedText type="default" style={{color : Colors.dark.text}} > Agregar</ThemedText>
+      </Button>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     maxWidth: 400,
   },
   label: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#555",
+    color: ColorsBase.neutral600,
     marginBottom: 5,
   },
   input: {
@@ -158,23 +163,7 @@ const styles = StyleSheet.create({
     borderColor: ColorsBase.cyan400,
     borderRadius:10,
     outlineColor: ColorsBase.cyan400
-  },
-  button: {
-    backgroundColor: ColorsBase.neutral800,
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginTop: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 3,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
+  }
 });
 
 export default CardForm;

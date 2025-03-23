@@ -6,6 +6,7 @@ import {Colors, ColorsBase} from '@/constants/Colors';
 import {router} from 'expo-router';
 import {Button} from 'react-native-paper';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import {ThemedView} from '@/components/ThemedView';
 const CardDetails = () => {
     const  {card} = useLocalSearchParams();
     //get card by id in DB
@@ -19,8 +20,7 @@ const CardDetails = () => {
         router.push("/dashboard/paymentMethod")
     }
     return (
-        <ScrollView style = {styles.contentScroll}>
-            <View>
+        <ThemedView style={styles.contentScroll}>
                 <HeaderToBack url={"../"} title="Tarjeta"/>
                 <View style={{gap : 20}}>
                     <View style={styles.container} >
@@ -34,8 +34,7 @@ const CardDetails = () => {
                         </View>
                     </Button >
                 </View>
-            </View>
-        </ScrollView>
+        </ThemedView>
     )
 }
 

@@ -19,12 +19,22 @@ const cardData = [
         id : '03',
         lastFord : '5566',
         brand : 'VISA'
-    }
+    },
+    {
+        id : '04',
+        lastFord : '7788',
+        brand : 'VISA'
+    },
+    {
+        id : '05',
+        lastFord : '9900',
+        brand : 'MasterCard'
+    },
+    
 ]
 export const CardsClient = ( {cardList} : {cardList:Array<Card>}) => {
     return (
         <FlatList
-            style= {{marginBottom : 20}}
             data = {cardList.length != 0 ? cardList : cardData }
             keyExtractor={( item)=> item.id}
             ItemSeparatorComponent={()=> <View style={{marginBottom : 10}}></View>}
