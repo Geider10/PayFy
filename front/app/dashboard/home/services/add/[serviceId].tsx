@@ -6,14 +6,14 @@ import authStyles from "@/components/auth/authStyles";
 import MyInputText from "@/components/auth/MyInputText";
 import SimpleButton from "@/components/auth/SimpleButton";
 import { ThemedText } from "@/components/ThemedText";
-import { ColorsBase } from "@/constants/Colors";
+import { ColorsBase, Colors } from "@/constants/Colors";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { useLocalSearchParams, RelativePathString, router} from "expo-router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ScrollView, Text, View , StyleSheet} from "react-native";
 import { HeaderToBack } from "@/components/HeaderToBack";
-
+import {ThemedView} from '@/components/ThemedView';
 export default function ServiceAdd() {
   const [textModal, setTextModal] = useState("");
   const [isOk, setIsOk] = useState(false)
@@ -45,9 +45,7 @@ export default function ServiceAdd() {
     }
   };
   return (
-    <ScrollView
-      style={{flex: 1 }}
-    >
+    <ThemedView style ={{flex: 1 }}>
       <HeaderToBack url={"/dashboard/home/services" as RelativePathString} title={servName}/>
       <View style={styles.contentService}>
         <ThemedText type="defaultSemiBold" style={{paddingBottom: 10 }}>
@@ -62,12 +60,12 @@ export default function ServiceAdd() {
         <SimpleButton
           onPress={handleSubmit(onHandleSubmit)}
           style={{
-            marginVertical: 15,
+            marginVertical: 20,
             borderRadius: 32,
             backgroundColor: ColorsBase.neutral800,
           }}
         >
-          <ThemedText style={{ color: ColorsBase.neutral50, fontWeight: 700 }}>
+          <ThemedText type="default" style={{color : Colors.dark.text}}>
             Agregar Servicio
           </ThemedText>
         </SimpleButton>
@@ -83,7 +81,7 @@ export default function ServiceAdd() {
         )
         }
       </View>
-    </ScrollView>
+    </ThemedView>
   );
 }
 

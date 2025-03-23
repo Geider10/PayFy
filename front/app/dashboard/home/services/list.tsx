@@ -9,6 +9,7 @@ import {
 import {useServiceStore} from '@/hooks/useServiceStore';
 import { HeaderToBack } from "@/components/HeaderToBack";
 import {RelativePathString} from 'expo-router';
+import {ThemedView} from '@/components/ThemedView';
 export default function ServicesList() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,22 +26,22 @@ export default function ServicesList() {
     getCategories();
   }, []);
   return (
-    <ScrollView
-      style={{ height: "100%"}}
-      contentContainerStyle={{ flex: 1}}
-    >
+    <ThemedView style={{flex : 1}}>
       <HeaderToBack url={"/dashboard/home" as RelativePathString} title={"Elegí tu proveedor"}/>
       {loading ? (
         <View>
           <CategorySkeleton />
         </View>
       ) : (
-        <View >
+        <ScrollView 
+          scrollEnabled={true}
+          showsVerticalScrollIndicator={false}
+        >
           {categories.map((cat: ServiceCategoryT) => {
             return <CategoryGroup key={cat.id} category={cat} />;
           })}
-        </View>
+        </ScrollView>
       )}
-    </ScrollView>
+    </ThemedView>
   );
 }
