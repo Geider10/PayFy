@@ -20,3 +20,9 @@ export interface UserInfo {
 export interface UserProf extends UserInfo{
     userDNI : string,
 }
+
+export interface Card {
+    id : string,
+    lastFord : string,
+    brand : string
+}

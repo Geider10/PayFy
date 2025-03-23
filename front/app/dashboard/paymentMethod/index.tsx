@@ -1,45 +1,44 @@
 import HeaderApp from "@/components/dashboard/HeaderApp";
 import { ThemedText } from "@/components/ThemedText";
-import { IconSymbol } from "@/components/ui/IconSymbol";
-import { ColorsBase } from "@/constants/Colors";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Colors } from "@/constants/Colors";
 import { router } from "expo-router";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-
+import { StyleSheet, TouchableOpacity, View} from "react-native";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import {CardsClient} from '@/components/paymentMethod/CardCliente';
+import { useState } from "react";
+import {Card} from '@/types/types';
+import {Button} from 'react-native-paper';
 export default function NewPaymentMethod() {
+
+  const [cardList, setCardList] = useState<Array<Card>>([])
+  
   return (
-    <View style={{ flex: 1, width: "100%", height: "100%", padding: 15, backgroundColor:ColorsBase.cyan100 }}>
-      <View style={{ paddingVertical: 25, gap: 16, maxWidth:900 }}>
-            <TouchableOpacity style={{width:30, height:30}} onPress={() => router.back()}>
-                <IconSymbol
-                    name="arrow.backward"
-                    size={24}
-                    color={ColorsBase.neutral800}
-                />
-            </TouchableOpacity>
+    <View style={{ flex: 1, width: "100%", height: "100%", padding : 15}}>
+      <View style={{ gap: 16, maxWidth:900 }}>
         <HeaderApp />
-        <ThemedText type="subtitle">Agregar método de Pago</ThemedText>
-        <ThemedText>Selecciona el metodo:</ThemedText>
-        <TouchableOpacity style={styles.typeSelector} onPress={()=>router.push("/paymentMethod/add")}>
-            <MaterialIcons name="credit-card" size={24} color={ColorsBase.cyan400}/>
-            <View style={{gap:5}}>
-                <ThemedText style={{fontSize:18, fontWeight:700}}>Tarjeta de Crédito/Débito</ThemedText>
-                <ThemedText>Visa, Mastercard, AMEX</ThemedText>
-            </View>
-        </TouchableOpacity>
+        <ThemedText type="subtitle">Métodos de Pago</ThemedText>
+        <View style={styles.content}>
+          <CardsClient cardList={cardList} />
+          <Button mode="contained" buttonColor="#333333" onPress={()=>router.push("/dashboard/paymentMethod/add")} style={{borderRadius : 32}}>
+              <View style={styles.btnAddCard}>
+                <MaterialCommunityIcons name="plus" size={24} color="white"/>
+                <ThemedText type= "default" style={{color : Colors.dark.text}}> Agregar nueva terjeta</ThemedText>
+              </View>
+          </Button>
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    typeSelector:{
+    content:{
+      flexDirection : "column",
+    },
+    btnAddCard:{
         flexDirection: "row",
-        borderColor: ColorsBase.cyan400,
-        borderWidth:1,
-        borderRadius:24,
-        padding:16,
-        gap:12,
-        backgroundColor: ColorsBase.neutral50
+        justifyContent : "center",
+        alignItems: "center",
+        gap:5,
     }
 })

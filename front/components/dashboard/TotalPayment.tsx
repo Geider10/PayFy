@@ -106,11 +106,11 @@ const TotalPayment: React.FC<PaymentProps> = ({ progress}) => {
 			<Button
 				mode='contained'
 				buttonColor='#333333'
-				style={styles.btnService}
+				style={{borderRadius : 32}}
 				onPress={()=> router.push("/dashboard/home/services/list")}
 			>
 				<View style={styles.btnServiceContent}>
-					<MaterialCommunityIcons name="plus" size={28} color="white" />
+					<MaterialCommunityIcons name="plus" size={24} color="white" />
 					<ThemedText type='default' style={{color : Colors.dark.text}}>
 						Agregar Servicio
 					</ThemedText>
@@ -135,11 +135,6 @@ const styles = StyleSheet.create({
 		alignItems: 'baseline',
 		alignSelf: 'flex-start',
 		paddingBottom: 16,
-	},
-	btnService : {
-		width: '100%',
-		height: 48,
-		borderRadius: 32,
 	},
 	btnServiceContent : {
 		flexDirection : 'row',

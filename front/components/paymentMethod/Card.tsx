@@ -1,19 +1,16 @@
-import {View, StyleSheet, Text} from 'react-native';
-import {Link} from 'expo-router';
-
-interface CardProps {
-    id: string,
-    number : string,
-    brand : string
-}
-export function Card({id, number, brand}: CardProps){
+import {View, StyleSheet, Pressable} from 'react-native';
+import {router} from 'expo-router';
+import {Card} from '@/types/types';
+import {ThemedText} from '@/components/ThemedText';
+import {Colors, ColorsBase} from '@/constants/Colors';
+export function CardId({id, lastFord, brand}: Card){
     return (
-       <Link asChild href={`/paymentMethod/${id}`}>
-            <View style={styles.container}>
-                <Text style = {styles.numberText}> . . . . {number} </Text>
-                <Text style = {styles.brandText}> {brand} </Text>
+        <Pressable onPress={()=> router.push(`/dashboard/paymentMethod/add/${id}`)}>
+            <View style={styles.container} >
+                <ThemedText type='default' style = {styles.numberText}> **** {lastFord} </ThemedText>
+                <ThemedText type="subtitle" style={{color : Colors.dark.text}}> {brand} </ThemedText>
             </View>
-       </Link>
+        </Pressable>
     )
 }
 
@@ -22,25 +19,18 @@ const styles = StyleSheet.create({
         borderRadius : 10,
         padding: 10,
         backgroundColor: '#e6713c',
-        minWidth: 300,
         minHeight :80,
         justifyContent: 'space-between',
         alignItems: 'flex-end',
         flexDirection: 'row',
     },
     numberText : {
-        fontSize : 10,
-        fontWeight : 'bold',
         padding: 5,
-        color : 'white',
-        backgroundColor : '#444444',
-        opacity: 0.8,
+        color : Colors.dark.text,
+        backgroundColor : "rgba(211, 211, 211, 0.4)",
         borderRadius: 5,
         textAlign: 'center',
         
     },
-    brandText : {
-        color : '#f0f0f0',
-        fontSize : 15
-    }
+
 })
