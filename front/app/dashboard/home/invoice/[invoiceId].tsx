@@ -1,4 +1,5 @@
 import { ThemedText } from "@/components/ThemedText";
+import { ThemedView} from '@/components/ThemedView';
 import { ColorsBase, Colors } from "@/constants/Colors";
 import { useLocalSearchParams, Link, router, RelativePathString} from "expo-router";
 import { ScrollView, View, StyleSheet, Text, ActivityIndicator } from "react-native";
@@ -26,7 +27,7 @@ export default function Route() {
     },1000)
   },[])
   return (
-    <ScrollView style={{padding:15, flex:1}} contentContainerStyle={{justifyContent:"space-between"}}>
+    <ThemedView style={{padding:15, flex:1}} >
       <View style={styles.contentCard}> 
           <HeaderToBack url={"/dashboard/home" as RelativePathString} title={"Factura"}/>
         {
@@ -34,8 +35,8 @@ export default function Route() {
             <>
              <View style= {{flexDirection : 'row',alignItems : 'flex-start', justifyContent : 'space-between'}}>
           <View>
-            <ThemedText type="subtitle" style= {styles.textBlack}>{debt.company.name}</ThemedText>
-            <ThemedText style= {styles.textBlack}>Category</ThemedText>
+            <ThemedText type="subtitle" >{debt.company.name}</ThemedText>
+            <ThemedText type="default" >Category</ThemedText>
           </View>
           <MaterialCommunityIcons name="newspaper-variant-outline" size={26} color="black" />
         </View>
@@ -44,17 +45,17 @@ export default function Route() {
         </View>
         <View
           style={styles.cardFlexRow}>
-          <ThemedText style= {styles.textBlack}>Vencimiento</ThemedText>
-          <ThemedText style= {styles.textBlack}>{debt.due_date}</ThemedText>
+          <ThemedText type = "default">Vencimiento</ThemedText>
+          <ThemedText type = "default">{debt.due_date}</ThemedText>
         </View >
         <View style={styles.cardPay} >
             <View style={styles.cardFlexRow} >
              <ThemedText style={styles.textRed2}>Pago</ThemedText>
-             <ThemedText style={styles.textRed2}> {debt.amount}</ThemedText>
+             <ThemedText style={styles.textRed2}>$ {debt.amount}</ThemedText>
             </View>
             <View style={styles.cardFlexRow} >
               <ThemedText style={styles.textRed2}>Impuestos</ThemedText>
-              <ThemedText style={styles.textRed2}> 0.0</ThemedText>
+              <ThemedText style={styles.textRed2}>$ 0.0</ThemedText>
             </View>
             <View style={styles.cardFlexRow} >
               <ThemedText type = 'subtitle' style={styles.textRed}>Total</ThemedText>
@@ -64,8 +65,9 @@ export default function Route() {
         <View>
           <Button
             mode="contained"
-            buttonColor={ColorsBase.cyan400}
+            buttonColor={ColorsBase.neutral800}
             onPress={()=> router.push('/dashboard/home')}
+            style={{borderRadius : 32}}
           >
             <ThemedText
                 type='default'
@@ -84,7 +86,7 @@ export default function Route() {
         }
        
        </View>
-    </ScrollView>
+    </ThemedView>
   );
 }
 

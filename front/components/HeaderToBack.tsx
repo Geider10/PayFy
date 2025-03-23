@@ -14,7 +14,7 @@ export  const HeaderToBack  = ({url, title} : HeaderProp) => {
     return(
       <View style= {{ justifyContent : 'flex-start', gap : 5, marginBottom : 15}}>
           <Link href={url} asChild>
-            <MaterialCommunityIcons name="arrow-left" size={26} color={Colors.light.icon} /> 
+            <MaterialCommunityIcons name="arrow-left" size={28} color={ColorsBase.neutral600} /> 
           </Link>
           <ThemedText type="subtitle" style={{color : ColorsBase.cyan400}}>
             {title}

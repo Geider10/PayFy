@@ -1,4 +1,6 @@
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
+import {ThemedText} from '@/components/ThemedText';
+import {Colors,ColorsBase} from '@/constants/Colors';
 
 type servicePros = {
     name : string,
@@ -7,11 +9,17 @@ type servicePros = {
 export const ServiceCard = ( {name, picture_url}: servicePros) => {
     return (
         <View style={styles.card}>
-            <Image
-                style={styles.img}
-                source={picture_url === 'string' ? require('../../assets/images/icon-service.png') :  { uri: picture_url }}
-            />
-            <Text style={styles.text}>{name}</Text>
+            {
+                picture_url == "string" ? (
+                    <View style={styles.imgCompany}></View> 
+                ):(
+                    <Image
+                        style={styles.img}
+                        source={picture_url === 'string' ? require('../../assets/images/icon-service.png') :  { uri: picture_url }}
+                    />
+                )
+            }
+            <ThemedText type="default" style={{color : Colors.light.text}}>{name}</ThemedText>
         </View>
     )
 }
@@ -20,7 +28,6 @@ const styles = StyleSheet.create({
     card: {
         width: 100,
         height: 100,
-        justifyContent: 'center',
         alignItems: 'center',
 
     },
@@ -31,5 +38,11 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-    }
+    },
+    imgCompany:{
+        width: 30,
+        height: 30,
+        backgroundColor: ColorsBase.neutral200,
+        borderRadius: 999,
+      }
 })

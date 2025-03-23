@@ -36,7 +36,7 @@ const servicesUser = [
 const ServicesClient = ({servicesList}:{servicesList?:any[]}) => {
 	return (
 		<Animated.FlatList
-			style={{flexDirection: 'row', flexWrap : 'wrap' , gap: 10}}
+			style={{flexDirection: 'row', flexWrap : 'wrap' }}
 			data={servicesList?.length !== 0 ? servicesList : servicesUser}
 			ListEmptyComponent={() => (
 				<ThemedView
@@ -51,12 +51,6 @@ const ServicesClient = ({servicesList}:{servicesList?:any[]}) => {
 						size={40}
 						color={'#75C975'}
 					/>
-					<ThemedText
-						type='title'
-						style={{ color: ColorsBase.cyan400 }}
-					>
-						¡Oops, no hay servicios!
-					</ThemedText>
 					<ThemedText
 						type='default'
 						style={{ color: ColorsBase.cyan400 }}

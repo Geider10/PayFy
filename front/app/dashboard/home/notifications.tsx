@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from '@/components/ThemedView';
 import { ColorsBase } from "@/constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity, View, FlatList } from "react-native";
@@ -28,46 +29,40 @@ const data = [
 const notifications = () => {
   const [selected, setSelected] = useState("Todos");
   return (
-    <FlatList
-      contentContainerStyle={{padding:15}}
-      data={[]}
-      renderItem={() => null}
-      ListHeaderComponent={
-        <View>
-          <HeaderToBack url={"./" as RelativePathString} title="Notificaciones"/>
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 8,
-              marginBottom : 20
-            }}>
-            <View style={styles.ButtonMarcarButtons}>
-              {["Todos", "No leídos", "Leídos"].map((filter) => (
-                <TouchableOpacity
-                  key={filter}
-                  style={[
-                    styles.filterLeidos,
-                    selected === filter && styles.selectedButton,
-                  ]}
-                  onPress={() => setSelected(filter)}>
-                  <ThemedText
-                    style={
-                      selected === filter ? styles.selectedText : styles.text
-                    }>
-                    {filter}
-                  </ThemedText>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-          <FlatList
-            data={data}
-            style={{ gap: 10 }}
-            renderItem={({ item }) => <Notification item={item} />}
-          />
+    <ThemedView style={{flex : 1, padding : 15}}>
+      <HeaderToBack url={"./" as RelativePathString} title="Notificaciones"/>
+      <View
+        style={{
+          flexDirection: "row",
+          gap: 8,
+          marginBottom : 20
+        }}>
+        <View style={styles.ButtonMarcarButtons}>
+          {["Todos", "No leídos", "Leídos"].map((filter) => (
+            <TouchableOpacity
+              key={filter}
+              style={[
+                styles.filterLeidos,
+                selected === filter && styles.selectedButton,
+              ]}
+              onPress={() => setSelected(filter)}>
+              <ThemedText
+                style={
+                  selected === filter ? styles.selectedText : styles.text
+                }>
+                {filter}
+              </ThemedText>
+            </TouchableOpacity>
+          ))}
         </View>
-      }
-    />
+      </View>
+      <FlatList
+        data={data}
+        style={{ gap: 10 }}
+        ItemSeparatorComponent={()=> <View style={{marginBottom : 10}}/>}
+        renderItem={({ item }) => <Notification item={item} />}
+      />
+  </ThemedView>
   );
 };
 

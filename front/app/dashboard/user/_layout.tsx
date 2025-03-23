@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 
 export default function Userlayout() {
   return (
-    <ThemedView style={{paddingHorizontal:28, paddingTop:20, paddingBottom:80, height:"100%", width:"100%"}}>
+    <ThemedView style={{paddingHorizontal:20, paddingTop:20, paddingBottom:80, height:"100%", width:"100%"}}>
       <UserProfileHeader handleBack={()=>{}} />
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />

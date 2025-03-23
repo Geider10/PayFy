@@ -90,7 +90,6 @@ const baseStyle = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     gap: 8,
-    paddingVertical: 16,
     borderRadius : 32,
     marginTop : 20
   },
