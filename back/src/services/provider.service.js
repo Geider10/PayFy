@@ -28,12 +28,12 @@ export class ProviderService {
         if (!service) throw new Error('Service no found');
         //check if service has registered at user
         const isClienteId = service.registeredUsers.some(c => c.client_Id == clientId);
-        if (!isClienteId) throw new Error('Service not have registered at user');
+        if (!isClienteId) throw new Error('no reconoce dicho número');
         //get user and check if user already has added the service
         const user = await userModel.findById(userId);
         if (!user) throw new Error('User no found');
         const isService = user.userFavoriteServices.some(s => s.serviceId == serviceId);
-        if (isService) return { success: true, message: 'service already is registered' };
+        if (isService) throw new Error('ya esta agregado');
         user.userFavoriteServices.push({ serviceId, clientId });
         await user.save();
         return { success: true, message: 'suscribed success to service', user };

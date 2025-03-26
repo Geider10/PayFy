@@ -6,6 +6,6 @@ import {cardSchema} from '../schemas/card.schema.js';
 export const cardRouter = Router()
 cardRouter.get('/',CardController.getPaymentMethods)
 cardRouter.get('/:id',CardController.getPaymentMethodById)
-cardRouter.post('/', CardController.createPaymentMethod)
+cardRouter.post('/',validateSchema(cardSchema) ,CardController.createPaymentMethod)
 cardRouter.put('/:id',validateSchema(cardSchema), CardController.updatePaymentMethod)
 cardRouter.delete('/:id',CardController.deletePaymentMethod)

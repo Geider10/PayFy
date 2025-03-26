@@ -1,34 +1,41 @@
 import {cardModel} from '../models/card.model.js';
+import {encryptData, decryptData} from '../utils/utils.js';
 
 export class CardService {
     static async getCards(){
-        const cards = await cardModel.find()
-        if(cards.length == 0) throw new Error('There are no paymentMethods')
+        const paymentMethods = await cardModel.find().lean().select('+cardNumber')
+        if(paymentMethods.length == 0) throw new Error('There are no paymentMethods')
+        const decryptPaymentMethods = paymentMethods.map((p)=>{
+            p.cardNumber = decryptData(p.cardNumber)
+            return { lastFord : p.cardNumber.slice(-4)}
+        })
 
-        return cards
+        return decryptPaymentMethods
     }
 
-    static async getCard({id}){
-        const card = await cardModel.findById(id)
-        if(!card) throw new Error('PaymentMethod no found')  
-        return card
+    static async getCardById({id}){
+        const paymentMethod = await cardModel.findById(id).lean().select('+cardNumber')
+        if(!paymentMethod) throw new Error('PaymentMethod no found')  
+        const {cardNumber} = paymentMethod
+        return { lastFord : decryptData(cardNumber).slice(-4)}
     }
     
-    static async creatCard({pmBody}){
-        const {token, userId} = pmBody 
-        await cardModel.create({token, userId}) 
+    static async createCard({pmBody}){
+        const encryptCardNumber =  encryptData(pmBody.cardNumber)
+        await cardModel.create({...pmBody, cardNumber: encryptCardNumber})
 
         return {success: true, message : 'paymentMethod successfully created'}
     }
 
     static async updateCard({id, pmBody}){   
-        const updatedCard = await cardModel.findByIdAndUpdate(id,{$set : pmBody, new : true})
-        if(!updatedCard) throw new Error('PaymentMethod no found')
+        const encryptCardNumber = encryptData(pmBody.cardNumber)
+        const cardUpdated = {...pmBody, cardNumber : encryptCardNumber} 
+        await cardModel.findByIdAndUpdate(id,{$set : cardUpdated, new : true})
 
         return {success: true, message : 'paymentMethod successfully updated'}
     }
 
-    static async deletePaymentMethod({id}){
+    static async deleteCardById({id}){
         const deletedCard = await cardModel.findByIdAndDelete(id)
         if(!deletedCard) throw new Error('PaymentMethod no found')
 
