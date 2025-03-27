@@ -4,42 +4,15 @@ import {ColorsBase} from '@/constants/Colors';
 import React from 'react';
 import {Card} from '@/types/types';
 import {CardId} from './Card';
-const cardData = [
-    {
-        id : '01',
-        lastFord : '1122',
-        brand : 'VISA'
-    },
-    {
-        id : '02',
-        lastFord : '3344',
-        brand : 'MasterCard'
-    },
-    {
-        id : '03',
-        lastFord : '5566',
-        brand : 'VISA'
-    },
-    {
-        id : '04',
-        lastFord : '7788',
-        brand : 'VISA'
-    },
-    {
-        id : '05',
-        lastFord : '9900',
-        brand : 'MasterCard'
-    },
-    
-]
+
 export const CardsClient = ( {cardList} : {cardList:Array<Card>}) => {
     return (
         <FlatList
-            data = {cardList.length != 0 ? cardList : cardData }
-            keyExtractor={( item)=> item.id}
+            data = {cardList}
+            keyExtractor={(card)=> card.cardId }
             ItemSeparatorComponent={()=> <View style={{marginBottom : 10}}></View>}
             renderItem={({item})=> 
-                <CardId id={item.id} lastFord={item.lastFord} brand={item.brand}/>
+                <CardId userId={item.userId} cardId={item.cardId} lastFord={item.lastFord} brand={item.brand}/>
             }  
             ListEmptyComponent={()=> (
                 <View style={{alignItems: 'center', marginVertical: 10}}>

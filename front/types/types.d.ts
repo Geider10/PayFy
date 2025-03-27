@@ -22,7 +22,8 @@ export interface UserProf extends UserInfo{
 }
 
 export interface Card {
-    id : string,
+    userId : string,
+    cardId : string,
     lastFord : string,
-    brand : string
+    brand? : string
 }

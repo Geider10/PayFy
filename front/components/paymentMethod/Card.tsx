@@ -3,12 +3,14 @@ import {router} from 'expo-router';
 import {Card} from '@/types/types';
 import {ThemedText} from '@/components/ThemedText';
 import {Colors, ColorsBase} from '@/constants/Colors';
-export function CardId({id, lastFord, brand}: Card){
+
+export function CardId(prop: Card){
+    const {cardId, lastFord, brand} = prop
     return (
-        <Pressable onPress={()=> router.push(`/dashboard/paymentMethod/add/${id}`)}>
+        <Pressable onPress={()=> router.push(`/dashboard/paymentMethod/add/${cardId}`)}>
             <View style={styles.container} >
                 <ThemedText type='default' style = {styles.numberText}> **** {lastFord} </ThemedText>
-                <ThemedText type="subtitle" style={{color : Colors.dark.text}}> {brand} </ThemedText>
+                <ThemedText type="subtitle" style={{color : Colors.dark.text}}> {brand ? brand : "Mastercard"} </ThemedText>
             </View>
         </Pressable>
     )
