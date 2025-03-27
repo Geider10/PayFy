@@ -7,7 +7,7 @@ export class CardService {
         if(paymentMethods.length == 0) throw new Error('There are no paymentMethods')
         const decryptPaymentMethods = paymentMethods.map((p)=>{
             p.cardNumber = decryptData(p.cardNumber)
-            return { lastFord : p.cardNumber.slice(-4)}
+            return { userId : p.userId ,lastFord : p.cardNumber.slice(-4)}
         })
 
         return decryptPaymentMethods
@@ -17,7 +17,7 @@ export class CardService {
         const paymentMethod = await cardModel.findById(id).lean().select('+cardNumber')
         if(!paymentMethod) throw new Error('PaymentMethod no found')  
         const {cardNumber} = paymentMethod
-        return { lastFord : decryptData(cardNumber).slice(-4)}
+        return {lastFord : decryptData(cardNumber).slice(-4)}
     }
     
     static async createCard({pmBody}){
