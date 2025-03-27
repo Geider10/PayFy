@@ -7,7 +7,7 @@ export class CardService {
         if(paymentMethods.length == 0) throw new Error('There are no paymentMethods')
         const decryptPaymentMethods = paymentMethods.map((p)=>{
             p.cardNumber = decryptData(p.cardNumber)
-            return { userId : p.userId ,lastFord : p.cardNumber.slice(-4)}
+            return { userId : p.userId ,cardId : p._id, lastFord : p.cardNumber.slice(-4)}
         })
 
         return decryptPaymentMethods
