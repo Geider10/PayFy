@@ -3594,6 +3594,11 @@ expo-system-ui@~4.0.7:
     "@react-native/normalize-colors" "0.76.6"
     debug "^4.3.2"
 
+expo-web-browser@^14.0.2:
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-14.0.2.tgz#52d53947c42fdfb225e8c230418ffe508bcf98a7"
+  integrity sha512-Hncv2yojhTpHbP6SGWARBFdl7P6wBHc1O8IKaNsH0a/IEakq887o1eRhLxZ5IwztPQyRDhpqHdgJ+BjWolOnwA==
+
 expo-web-browser@~14.0.2:
   version "14.0.2"
   resolved "https://registry.npmjs.org/expo-web-browser/-/expo-web-browser-14.0.2.tgz"
@@ -4239,10 +4244,11 @@ inline-style-prefixer@^6.0.1:
     expo-symbols "~0.2.1"
     expo-system-ui "~4.0.7"
     expo-web-browser "~14.0.2"
-    insurely "file:C:/Users/geide/AppData/Local/Yarn/Cache/v6/npm-insurely-1.0.0-71451ba8-6a47-494b-b08c-99684f53cfd4-1742252212931/node_modules/insurely"
+    insurely "file:C:/Users/geide/AppData/Local/Yarn/Cache/v6/npm-insurely-1.0.0-e5bdf711-9a99-4632-a835-a7fd75c6c110-1743128066306/node_modules/insurely"
     react "18.3.1"
     react-dom "18.3.1"
     react-hook-form "^7.54.2"
+    react-loader-spinner "^6.1.6"
     react-native "0.76.6"
     react-native-gesture-handler "~2.20.2"
     react-native-paper "^5.13.1"

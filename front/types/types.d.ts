@@ -27,3 +27,10 @@ export interface Card {
     lastFord : string,
     brand? : string
 }
+export type CreateCard = {
+    userId : string
+    cardHolderName : string,
+    cardNumber : string,
+    cardType : string,
+    cardExpirationDate : string
+}

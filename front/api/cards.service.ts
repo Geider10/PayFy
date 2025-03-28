@@ -1,15 +1,9 @@
 import { AxiosError } from "axios";
 import axiosApi from "./axiosApi";
-
+import {CreateCard} from '@/types/types';
 const CARDSS_URI = "/card";
 
-type CreateCard = {
-    userId : string
-    cardHolderName : string,
-    cardNumber : string,
-    cardType : string,
-    cardExpirationDate : string
-}
+
 export const apiGetCards = async () => {
     try {
         const { data } = await axiosApi.get(`${CARDSS_URI}`);
