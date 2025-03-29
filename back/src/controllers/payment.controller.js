@@ -28,4 +28,13 @@ export class PaymentController{
             next(error)
         }
     }
+    static async paymentInvoice(req,res,next){
+        try {
+            const payBody = req.body
+            const payment = await PaymentService.paymentInvoice({payBody})
+            res.status(201).json(payment)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
