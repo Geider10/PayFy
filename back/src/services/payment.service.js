@@ -45,21 +45,17 @@ export class PaymentService{
                 }
             ]
         }
-        try {
-            const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
-                method : 'POST',
-                headers : {
-                    'Content-Type' : 'application/json',
-                    'Authorization' : `Bearer ${ACCESS_TOKEN_MP}`
-                },
-                body : JSON.stringify(preference)
-            })
-            const data = await response.json()
-            console.log(data.init_point);
-            return data.init_point
-        } catch (error) {
-            throw new Error('Error creating payment', error)
-            
-        }
+        const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${ACCESS_TOKEN_MP}`
+            },
+            body : JSON.stringify(preference)
+        })
+        const data = await response.json()
+        if (!data) throw new Error('Error creating payment')
+        console.log(data.init_point);
+        return {url : data.init_point}
     }
 }
