@@ -5,6 +5,5 @@ import {paymentSchema} from '../schemas/payment.schema.js';
 
 export const paymentRouter = Router()
 paymentRouter.get('/user/:clientId',PaymentController.getPaymentsUser)
-paymentRouter.get('/pay/:payId',PaymentController.getPaymentByIdUser)
+paymentRouter.get('/user/:clientId/pay/:payId',PaymentController.getPaymentByIdUser)
 paymentRouter.post('/',validateSchema(paymentSchema),PaymentController.createPaymentUser)
-paymentRouter.post('/invoice',PaymentController.paymentInvoice)
