@@ -5,21 +5,33 @@ import {View} from 'react-native';
 import { Colors, ColorsBase } from '@/constants/Colors'
 import { router } from 'expo-router'
 import { useColorScheme } from '@/hooks/useColorScheme.web'
-import {Debt} from '@/types/types';
-import {payInvoice} from '@/api/payment.service';
+import {Debt, CreateDebt} from '@/types/types';
+import {payInvoice, apiPostPayment} from '@/api/payment.service';
 import {openBrowserAsync} from 'expo-web-browser';
+import { useAuthStore } from '@/hooks/useAuthStore';
 
 const DebtCard : React.FunctionComponent<Debt> =  (DebtProp) => {
     const theme = useColorScheme() ?? 'light'
-    // const insets = useSafeAreaInsets()
-
+    const {user} = useAuthStore()
     const handlePayInvoice = async () => {
         const {ok, data} = await payInvoice(DebtProp)
         if (ok){
+            handleCreatePayment()
             openBrowserAsync(data.url)
+            // console.log(DebtProp, user);
         }
-        
     }
+     const handleCreatePayment = async () => {
+        const createDebt : CreateDebt = {
+            userId : String(user._id),
+            invoiceId : DebtProp.invoice_id,
+            paymentStatus : 'approved'
+          }
+
+        const {data} = await apiPostPayment(createDebt) 
+        if(!data) return console.log('No se pudo crear el pago');
+        console.log('se realizo el pago',  data.message);
+      }
     return (
         <Card
         mode='contained'

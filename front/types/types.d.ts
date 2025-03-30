@@ -10,7 +10,12 @@ export interface Debt {
     invoice_id : string,
     invoice_title : string
 }
-
+type StatusDebt = 'approved' | 'pending' | 'rejected'
+export type CreateDebt = {
+    userId : string,
+    invoiceId : string,
+    paymentStatus : StatusDebt
+}
 export interface UserInfo {
     userEmail: string;
     userLastName: string;

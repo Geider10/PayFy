@@ -8,9 +8,9 @@ import {Button} from 'react-native-paper';
 import {useEffect, useState} from 'react';
 import {apiGetUserDebts} from '@/api/providers.service';
 import {useAuthStore} from '@/hooks/useAuthStore';
-import {Debt} from '@/types/types';
+import {CreateDebt, Debt} from '@/types/types';
 import { HeaderToBack } from "@/components/HeaderToBack";
-import {payInvoice} from '@/api/payment.service';
+import {payInvoice, apiPostPayment} from '@/api/payment.service';
 import {openBrowserAsync} from 'expo-web-browser';
 
 export default function Route() {
@@ -18,17 +18,27 @@ export default function Route() {
   const { invoiceId } = useLocalSearchParams<{ invoiceId: string }>();
   const [debt, setDebt] = useState<Debt>()
   const {user} = useAuthStore()
-
+  
   const handlePayInvoice = async () => {
     if (debt){
       const {ok, data} = await payInvoice(debt)
       if (ok){
+          handleCreatePayment()
           openBrowserAsync(data.url)
       }
     }
           
   }
-
+  const handleCreatePayment = async () => {
+    const createDebt : CreateDebt = {
+      userId : String(user._id),
+      invoiceId,
+      paymentStatus : 'approved'
+    }
+    const {data} = await apiPostPayment(createDebt) 
+    if(!data) return console.log('No se pudo crear el pago');
+    console.log('se realizo el pago',  data.payment);
+  }
   const getDebtById = async () =>{
     const {data } = await apiGetUserDebts(String(user._id))
     const findDebt = data.find( (d: Debt) => d.invoice_id == invoiceId)

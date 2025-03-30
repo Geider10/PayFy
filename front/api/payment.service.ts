@@ -1,5 +1,7 @@
 import {AxiosError} from 'axios';
-import {Debt} from '@/types/types';
+import {Debt, CreateDebt} from '@/types/types';
+import axiosApi from "./axiosApi";
+const PAYMENT_URI = "/payment";
 
 export const payInvoice = async(invoice : Debt) => {
     const ACCESS_TOKEN_MP= process.env.EXPO_PUBLIC_ACCESS_TOKEN_MP
@@ -35,5 +37,30 @@ export const payInvoice = async(invoice : Debt) => {
         }
         return {ok:false, data:{message:"Server error"}}
         
+    }
+}
+
+export const apiPostPayment = async ( payment : CreateDebt) => {
+    try {
+        const { data} = await axiosApi.post(`${PAYMENT_URI}`, payment);
+        return {ok : true, data}
+    } catch (error) {
+        if(error instanceof AxiosError){
+            return {ok:false, data:error.response?.data}
+        }
+        return {ok:false, data:{message:"Server error"}}
+        
+    }
+}
+
+export const apiGetPaymentsUser = async (userId : string) => {
+    try {
+        const {data} = await axiosApi.get(`${PAYMENT_URI}/${userId}`)
+        return {ok : true, data}
+    } catch (error) {
+        if(error instanceof AxiosError){
+            return {ok:false, data:error.response?.data}
+        }
+        return {ok:false, data:{message:"Server error"}}       
     }
 }
