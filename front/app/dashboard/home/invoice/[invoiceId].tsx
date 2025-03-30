@@ -10,11 +10,24 @@ import {apiGetUserDebts} from '@/api/providers.service';
 import {useAuthStore} from '@/hooks/useAuthStore';
 import {Debt} from '@/types/types';
 import { HeaderToBack } from "@/components/HeaderToBack";
+import {payInvoice} from '@/api/payment.service';
+import {openBrowserAsync} from 'expo-web-browser';
+
 export default function Route() {
 
   const { invoiceId } = useLocalSearchParams<{ invoiceId: string }>();
   const [debt, setDebt] = useState<Debt>()
   const {user} = useAuthStore()
+
+  const handlePayInvoice = async () => {
+    if (debt){
+      const {ok, data} = await payInvoice(debt)
+      if (ok){
+          openBrowserAsync(data.url)
+      }
+    }
+          
+  }
 
   const getDebtById = async () =>{
     const {data } = await apiGetUserDebts(String(user._id))
@@ -66,7 +79,7 @@ export default function Route() {
           <Button
             mode="contained"
             buttonColor={ColorsBase.neutral800}
-            onPress={()=> router.push('/dashboard/home')}
+            onPress={()=> handlePayInvoice()}
             style={{borderRadius : 32}}
           >
             <ThemedText

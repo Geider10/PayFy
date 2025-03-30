@@ -36,7 +36,7 @@ const DebtsClient = ( {debtsList}:{debtsList?:Debt[]}) => {
             )}
             keyExtractor={(item) => item.invoice_id}
             renderItem={({ item }) => (
-                <DebtCard invoice_id={item.invoice_id} due_date={item.due_date} amount={item.amount} company={item.company}  client_description='' client_id='' invoice_title=''/>
+                <DebtCard invoice_id={item.invoice_id} due_date={item.due_date} amount={item.amount} company={item.company}  client_description={item.client_description} client_id={item.client_id} invoice_title={item.invoice_title}/>
             )}
         />
     )

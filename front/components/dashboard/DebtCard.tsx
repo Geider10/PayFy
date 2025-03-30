@@ -5,12 +5,21 @@ import {View} from 'react-native';
 import { Colors, ColorsBase } from '@/constants/Colors'
 import { router } from 'expo-router'
 import { useColorScheme } from '@/hooks/useColorScheme.web'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import {Debt} from '@/types/types';
+import {payInvoice} from '@/api/payment.service';
+import {openBrowserAsync} from 'expo-web-browser';
 
-const DebtCard : React.FunctionComponent<Debt> =  ({due_date, invoice_id, amount, company }) => {
+const DebtCard : React.FunctionComponent<Debt> =  (DebtProp) => {
     const theme = useColorScheme() ?? 'light'
-    const insets = useSafeAreaInsets()
+    // const insets = useSafeAreaInsets()
+
+    const handlePayInvoice = async () => {
+        const {ok, data} = await payInvoice(DebtProp)
+        if (ok){
+            openBrowserAsync(data.url)
+        }
+        
+    }
     return (
         <Card
         mode='contained'
@@ -44,7 +53,7 @@ const DebtCard : React.FunctionComponent<Debt> =  ({due_date, invoice_id, amount
                         fontWeight : 'bold'
                     }}
                 >
-                    {company.name}
+                    {DebtProp.company.name}
                 </ThemedText>
             </ThemedView>
         </View>
@@ -56,7 +65,7 @@ const DebtCard : React.FunctionComponent<Debt> =  ({due_date, invoice_id, amount
         }}
     >
         <ThemedText>Vencimiento</ThemedText>
-        <ThemedText>{due_date}</ThemedText>
+        <ThemedText>{DebtProp.due_date}</ThemedText>
     </View>
     <View
         style={{
@@ -65,7 +74,7 @@ const DebtCard : React.FunctionComponent<Debt> =  ({due_date, invoice_id, amount
         }}
     >
         <ThemedText>Total a pagar</ThemedText>
-        <ThemedText>$ {amount}</ThemedText>
+        <ThemedText>$ {DebtProp.amount}</ThemedText>
     </View>
     <View
         style={{
@@ -83,7 +92,7 @@ const DebtCard : React.FunctionComponent<Debt> =  ({due_date, invoice_id, amount
                 borderColor: ColorsBase.cyan500,
             }}
             onPress={() =>
-                router.push(`/dashboard/home/invoice/${invoice_id}`)
+                router.push(`/dashboard/home/invoice/${DebtProp.invoice_id}`)
             }
         >
             <ThemedText
@@ -96,6 +105,7 @@ const DebtCard : React.FunctionComponent<Debt> =  ({due_date, invoice_id, amount
         <Button
             mode='contained'
             buttonColor={ColorsBase.cyan500}
+            onPress={()=> handlePayInvoice()}
         >
             <ThemedText
                 type='default'
