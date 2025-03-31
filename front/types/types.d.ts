@@ -11,6 +11,7 @@ export interface Debt {
     invoice_title : string
 }
 type StatusDebt = 'approved' | 'pending' | 'rejected'
+
 export type CreateDebt = {
     userId : string,
     invoiceId : string,
@@ -38,4 +39,12 @@ export type CreateCard = {
     cardNumber : string,
     cardType : string,
     cardExpirationDate : string
+}
+
+export type Payment ={
+    _id : string,
+    userId : string,
+    invoiceId : Debt,
+    paymentStatus : StatusDebt,
+    paymentDateCreated : string
 }

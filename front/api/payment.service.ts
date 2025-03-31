@@ -55,7 +55,7 @@ export const apiPostPayment = async ( payment : CreateDebt) => {
 
 export const apiGetPaymentsUser = async (userId : string) => {
     try {
-        const {data} = await axiosApi.get(`${PAYMENT_URI}/${userId}`)
+        const {data} = await axiosApi.get(`${PAYMENT_URI}/user/${userId}`)
         return {ok : true, data}
     } catch (error) {
         if(error instanceof AxiosError){
