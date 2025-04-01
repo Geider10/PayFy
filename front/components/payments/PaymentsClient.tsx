@@ -14,7 +14,8 @@ export const PaymentsClient = ( {paymentList} : {paymentList : Array<Payment>} )
                         ¡No hay pagos!
                     </ThemedText>
                 </View>
-            )}     
+            )}   
+            ItemSeparatorComponent={()=><View style={{marginBottom : 10}}/>}  
         />
     )
 }
