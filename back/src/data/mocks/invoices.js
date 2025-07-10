@@ -1,7 +1,7 @@
 //cliente_id: esta factura del usuario esta relacionada con un servicio
 //invoice_id: Id unico de la factura
 //Pueden existir facturas con el mismo cliente_Id pero con distinto invoice_id 
-export const debts = [
+export const invoices = [
   {
     "company": {
       "serviceId": "0001",

@@ -1,8 +1,7 @@
-//cliente_Id: este Id es unico y el servicio se relaciona con el usuario a traves del mismo
-//registeredUsers: tiene el ID de los usuarios, no tiene usuarios repetidos
+//cliente_Id: este Id es unico y pemite relacionar al usuario con el servicio
+//registeredUsers: la lista de usarios registrados con el servicio
 
-
-export const companies = [
+export const services = [
     {
       "serviceId": "0001",
       "name": "Edenor",

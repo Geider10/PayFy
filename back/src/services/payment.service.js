@@ -1,6 +1,6 @@
-import {paymentModel} from '../models/payment.model.js';
+import {paymentModel} from '../data/models/payment.model.js';
 import {formatDate, readJSON} from '../utils/utils.js';
-import {debts} from '../data/debts.js';
+import {invoices} from '../data/mocks/invoices.js';
 
 export class PaymentService{
     static async getPaymentsUser({clientId}){
@@ -14,7 +14,7 @@ export class PaymentService{
         if(paymentsUser.length == 0) throw new Error('There are no payments for this user')
 
         const paymentsDetail = paymentsUser.map(p => {
-            const debt = debts.find(d => d.invoice_id == p.invoiceId)
+            const debt = invoices.find(d => d.invoice_id == p.invoiceId)
             return {...p, invoiceId : debt}
         })
         return paymentsDetail

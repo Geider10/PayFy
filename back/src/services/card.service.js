@@ -1,4 +1,4 @@
-import {cardModel} from '../models/card.model.js';
+import {cardModel} from '../data/models/card.model.js';
 import {encryptData, decryptData} from '../utils/utils.js';
 
 export class CardService {

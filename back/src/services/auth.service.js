@@ -1,4 +1,4 @@
-import {userModel} from '../models/user.model.js';
+import {userModel} from '../data/models/user.model.js';
 import {hashData, verifyHashData} from '../utils/utils.js';
 import {SECRET_KEY} from '../utils/config.js';
 import jwt  from 'jsonwebtoken';

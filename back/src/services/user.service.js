@@ -1,4 +1,4 @@
-import {userModel} from '../models/user.model.js';
+import {userModel} from '../data/models/user.model.js';
 import {hashData} from '../utils/utils.js';
 export class UserService{
 

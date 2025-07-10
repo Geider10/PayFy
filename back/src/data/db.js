@@ -1,5 +1,5 @@
 import {connect} from 'mongoose';
-import {MONGO_URI} from './config.js';
+import {MONGO_URI} from '../utils/config.js';
 
 export const connectDB = () => {
     //Primero se conecta con BD y luego se crean las rutas y configuran los middlewar

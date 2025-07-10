@@ -1,7 +1,7 @@
-import { userModel } from '../models/user.model.js';
-import {categories} from '../data/categories.js';
-import {companies} from '../data/companies.js';
-import {debts} from '../data/debts.js';    
+import { userModel } from '../data/models/user.model.js';
+import {categories} from '../data/mocks/categories.js';
+import {services} from '../data/mocks/services.js';
+import {invoices} from '../data/mocks/invoices.js';    
 
 export class ProviderService {
     static async getCategories() {
@@ -11,7 +11,7 @@ export class ProviderService {
     }
 
     static async getCompanies({ categoryId }) {
-        const companiesList = companies
+        const companiesList = services
         if (companiesList.length === 0) throw new Error('There are not companies in API');
         const filterCompanies = companiesList.filter(c => c.category.id == categoryId);
         if (filterCompanies.length === 0) throw new Error('There are not companies in this category');
@@ -21,7 +21,7 @@ export class ProviderService {
     static async addServiceUser({ serviceBody }) {
         const { serviceId, clientId, userId } = serviceBody; //body: userId, serviceId, clientId
         //get companies 
-        const companiesList = companies
+        const companiesList = services
         if (companiesList.length === 0) throw new Error('There are not companies in API');
         //get service by serviceId
         const service = companiesList.find(s => s.serviceId == serviceId);
@@ -40,26 +40,26 @@ export class ProviderService {
     }
 
     static async getDebtsUser({ clientId, serviceId}) {
-        const debtsList = debts
-        if (debtsList.length === 0) throw new Error('There are no debts in API');
+        const debtsList = invoices
+        if (debtsList.length === 0) throw new Error('There are no invoices in API');
         const user = await userModel.findById(clientId).lean();
         if (!user) throw new Error('User no found');
-        //get debts ID if services already is registered
+        //get invoices ID if services already is registered
         let debtsByService = debtsList.filter(debt =>
             user.userFavoriteServices.some(service => service.clientId == debt.client_id)
         );
         console.log(debtsByService);
-        //filter debts by query params
+        //filter invoices by query params
         if (serviceId !== undefined) {
             const filterByCategory = debtsByService.filter(d => d.company.serviceId == serviceId);
             return filterByCategory;
         }
-        if (debtsByService.length === 0) return { message: 'There are not debts pending' };
+        if (debtsByService.length === 0) return { message: 'There are not invoices pending' };
         return debtsByService;
     }
 
     static async getServicesUser({ id }) {
-        const companiesList = companies
+        const companiesList = services
         if (companiesList.length === 0) throw new Error('There are not companies in API');
         const user = await userModel.findById(id);
         if (!user) throw new Error('User no found');

@@ -1,6 +1,6 @@
 import {z} from 'zod';
 
-export const userSchema = z.object({
+export const userValidator = z.object({
     userName : z.string().min(3, "minimo 3  caracteres"),
     userLastName : z.string().min(3, "minimo 3 caracteres"),
     userDNI : z.string().min(7, "minimo 7 caracteres"),
@@ -8,7 +8,7 @@ export const userSchema = z.object({
     userPassword : z.string().min(8, "minimo 8 caracteres"),
     userFavoriteServices : z.array(z.string()).optional().default([])
 })
-export const loginUserSchema = z.object({
+export const loginUserValidator = z.object({
     userEmail : z.string().email(),
     userPassword : z.string().min(8)
 })
