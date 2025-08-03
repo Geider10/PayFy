@@ -1,13 +1,23 @@
-import express from 'express';
+import connectDB from './data/appDB';
+import app from './app';
+import {PORT} from './util/config';
+import { AccessDeniedError, ConnectionError } from 'sequelize';
 
-const app = express();
-app.use(express.json());
+async function main(){
+    try{
+        await connectDB();
+        console.log("Success connection with db");
+        app.listen(PORT, ()=> {console.log("Server is running in port", PORT) })
+    }
+    catch(error){
+        if (error instanceof AccessDeniedError) {
+            console.error("Access denied to the database. Please check your credentials.");
+        } else if (error instanceof ConnectionError) {
+            console.error("Failed to connect to the database. Please check your connection settings.");
+        } else {
+            console.error("Unexpected error:", error);
+        }
+    }
+}
 
-const PORT = process.env.PORT || 3000;
-
-app.get('/test', (_req, res) => {
-    res.send("Hello world");
-})
-app.listen(PORT, () => {
-    console.log("server on port" , PORT);
-})
+main()
