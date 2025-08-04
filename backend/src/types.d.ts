@@ -10,6 +10,7 @@ export interface UserAttributes {
 }
 export interface UserCreationAttributes extends Optional<UserAttributes, 'id'>{}
 export type UserSignup = Omit<UserAttributes, 'id'>;
+export type UserLogin = Pick<UserAttributes, "email" | "password">;
 
 
 export interface MainResponse {

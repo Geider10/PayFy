@@ -6,3 +6,4 @@ export const userRouter = Router();
 const userController = container.resolve(UserController);
 
 userRouter.post('/signup', userController.Signup.bind(userController));
+userRouter.post('/login', userController.Login.bind(userController));

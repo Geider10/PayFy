@@ -1,15 +1,22 @@
-import bcrypt from 'bcrypt';
-import {injectable} from 'tsyringe';
+import {genSalt, compare, hash} from 'bcrypt';
+import {singleton} from 'tsyringe';
+import {sign} from 'jsonwebtoken';
+import {SECRET_KEY} from './config';
 
-@injectable()
+@singleton()
 export class Util {
-    async HashText(text : string){
-        const salt = await bcrypt.genSalt(10)
-        const dataHash = await bcrypt.hash(text,salt)
+    async HashText(text : string) : Promise<string>{
+        const salt = await genSalt(10)
+        const dataHash = await hash(text,salt)
         return dataHash
     }
-    async VerifyHashText(text : string, textHash : string){
-        const dataVerify  = await bcrypt.compare(text,textHash)
+    async VerifyHashText(text : string, textHash : string) : Promise<boolean>{
+        const dataVerify  = await compare(text,textHash)
         return dataVerify
     }
+    CreateToken(id : string) : string{
+        const jwt = sign({userId : id}, SECRET_KEY!, {expiresIn : "15m"} )
+        return jwt
+    }
+
 }

@@ -5,7 +5,7 @@ import {UserService} from '../service/user.service';
 import {UserController} from '../controller/user.controller';
 
 container.registerSingleton(Util);
-container.registerSingleton(UserRepository);
+container.registerInstance("IUserRepository",new UserRepository());
 container.registerSingleton(UserService);   
 container.registerSingleton(UserController)
 
