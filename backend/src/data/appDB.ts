@@ -1,11 +1,14 @@
 import { Sequelize } from 'sequelize-typescript';
 import {DATABASE, PASSWORD} from '../util/config';
+import {User} from './model/user.model';
 
 const sequelize  = new Sequelize({
   database: DATABASE,
   dialect: "mysql",
   username: "root",
-  password: PASSWORD
+  password: PASSWORD,
+  models: [User],
+  logging: false,
 });
 
 async function connectDB () : Promise<Sequelize> {
