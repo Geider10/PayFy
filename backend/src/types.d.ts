@@ -11,7 +11,8 @@ export interface UserAttributes {
 export interface UserCreationAttributes extends Optional<UserAttributes, 'id'>{}
 export type UserSignup = Omit<UserAttributes, 'id'>;
 export type UserLogin = Pick<UserAttributes, "email" | "password">;
-
+export type UserGet = Omit<UserAttributes, "id" | "password">;
+export type UserUpdate = Omit<UserAttributes, "id" | "email" | "password">;
 
 export interface MainResponse {
     ok : boolean;

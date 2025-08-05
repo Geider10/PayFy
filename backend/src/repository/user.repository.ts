@@ -5,6 +5,9 @@ import {injectable} from 'tsyringe';
 export interface IUserRepository{
     GetByEmail(email : string) : Promise<UserAttributes | null>
     Add(user : UserCreationAttributes) : Promise<void>
+    GetById(id : string) : Promise<User | null>
+    Update(user : User) : Promise<void>
+    Delete(user : User) : Promise<void>
 }
 
 @injectable()
@@ -14,5 +17,14 @@ export class UserRepository implements  IUserRepository{
     }
     async Add ( user : UserCreationAttributes){
         await User.create(user)
+    }
+    async GetById (id : string) : Promise<User | null>{
+        return await User.findByPk(id);
+    } 
+    async Update(user : User) {
+        await user.save();
+    }
+    async Delete(user : User){
+        await user.destroy();
     }
 }
