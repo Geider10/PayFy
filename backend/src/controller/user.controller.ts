@@ -23,7 +23,7 @@ export class UserController {
             const user : UserLogin = req.body;
 
             const token = await this._userService.Login(user);
-            res.status(200).json(token);
+            res.status(200).json(token); 
         } catch (error) {
             next(error);
         }

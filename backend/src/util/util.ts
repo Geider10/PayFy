@@ -1,7 +1,7 @@
 import {genSalt, compare, hash} from 'bcrypt';
 import {singleton} from 'tsyringe';
 import {sign} from 'jsonwebtoken';
-import {SECRET_KEY} from './config';
+import {SECRET_KEY} from '../config/config';
 
 @singleton()
 export class Util {

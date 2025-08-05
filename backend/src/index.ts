@@ -1,6 +1,6 @@
 import connectDB from './data/appDB';
 import app from './app';
-import {PORT} from './util/config';
+import {PORT} from './config/config';
 import { AccessDeniedError, ConnectionError } from 'sequelize';
 
 async function main(){
