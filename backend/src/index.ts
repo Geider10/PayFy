@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import connectDB from './data/appDB';
 import app from './app';
 import {PORT} from './config/config';
@@ -11,9 +12,9 @@ async function main(){
     }
     catch(error){
         if (error instanceof AccessDeniedError) {
-            console.error("Access denied to the database. Please check your credentials.");
+            console.error("Access denied to the database");
         } else if (error instanceof ConnectionError) {
-            console.error("Failed to connect to the database. Please check your connection settings.");
+            console.error("Failed to connect to the database");
         } else {
             console.error("Unexpected error:", error);
         }

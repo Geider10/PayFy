@@ -12,6 +12,6 @@ const sequelize  = new Sequelize({
 });
 
 async function connectDB () : Promise<Sequelize> {
-  return await sequelize.sync({alter : true})
+  return await sequelize.sync()
 }
 export default connectDB;

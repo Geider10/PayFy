@@ -16,7 +16,7 @@
     // and npm install -D @types/node
 
     // Other Outputs
-    //"sourceMap": true,
+    "sourceMap": true,
     //"declaration": true,
     //"declarationMap": true,
 
@@ -45,5 +45,6 @@
     "esModuleInterop": true,
     "experimentalDecorators" : true,
     "emitDecoratorMetadata" : true
-  }
+  },
+    "include": ["src"]
 }

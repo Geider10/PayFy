@@ -1,5 +1,5 @@
-import 'dotenv/config';
-
+import dotenv from 'dotenv';
+dotenv.config();
 export const PORT = process.env.PORT || process.env.PORT_DEV;
 export const DATABASE = process.env.DATABASE || process.env.DATABASE_DEV;
 export const USERNAME = process.env.USERNAME || process.env.USERNAME_DEV;
